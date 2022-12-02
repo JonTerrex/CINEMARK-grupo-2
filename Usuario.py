@@ -72,7 +72,7 @@ class Admin:
     def verReservaParticular():
         pass
     def crearSala():
-        pass
+        conexion=Conexion_BD()
     def modificarSala():
         pass
     def eliminarSala():
@@ -85,6 +85,11 @@ class Admin:
         pass
     def eliminarFuncion():
         pass
+    def quitarPelicula(self, idPelicula):
+        conexion = Conexion_BD("BaseDeDatos.db")
+        conexion.consulta(f"DELETE FROM Peliculas WHERE id = {idPelicula}")
+        conexion.commit()
+        conexion.cerrar()
 
 
 
@@ -160,11 +165,17 @@ class Cliente:
 
     def registrarse(self):
         conexion=Conexion_BD("BaseDeDatos.db")
-        if conexion.consulta(f"select correo from Clientes where correo='{self.correo}'")!=None:
-            conexion.insertar("insert into Clientes (usuario, password, correo, nombre, apellido, fechaNacimiento, tarjeta, tipoDeUsuario) values (?,?,?,?,?,?,?,?)",(self.usuario, self.password, self.correo, self.nombre, self.apellido, self.tarjetaDeDescuento, self.tipoDeUsuario))
+        if conexion.consulta(f"SELECT correo FROM Clientes WHERE correo = '{self.correo}'")!=None:
+            conexion.insertar("insert into Clientes (usuario, password, correo, nombre, apellido, fechaNacimiento, tarjetaDeDescuento, tipoDeUsuario) values (?,?,?,?,?,?,?,?)",(self.usuario, self.password, self.correo, self.nombre, self.apellido, self.fechaNacimiento,self.tarjetaDeDescuento, self.tipoDeUsuario))
     
-    def login():
-        pass
+    def login(self, usuario, password):
+        conexion=Conexion_BD("BaseDeDatos.db")
+        if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
+                print('Logged in')
+        else:
+            print('Revise los datos ingresados')
+        conexion.cerrar()
+
     def reservar():
         pass
     def moficarReserva():
@@ -174,8 +185,11 @@ class Cliente:
     def historialReservas():
         pass
 
-con=Conexion_BD("BaseDeDatos.db")
+
+#con=Conexion_BD("BaseDeDatos.db")
 #con.consulta("CREATE TABLE Clientes (usuario Text Primary Key, password Text, correo Text, nombre Text, apellido Text, fechaNacimiento Text, id Integer auto increment, tarjetaDeDescuento Text, tipoDeUsuario Text)")
 #con.consulta("CREATE TABLE Administradores (usuario Text Primary Key, password Text, correo Text, id Integer auto increment, nombre Text, apellido Text, cargo Text, tipoDeUsuario Text)")
-con.commit()
-con.cerrar()
+#con.consulta("CREATE TABLE Peliculas (id Integer Primary Key autoincrement, Titulo Text, Estreno Text, Genero Text, Duracion Integer, Director Text, Descripcion Text, Clasificacion Text)")
+
+#con.commit()
+#con.cerrar()

@@ -1,5 +1,5 @@
 #Clases: Funcion, Sala, Funciones, Pelicula, Catalogo
-
+from baseDeDatos import Conexion_BD
 class Funcion:
     def __init__(self, idFuncion, fecha, pelicula, butacasLibres, es3D, sala):
         self.__idFuncion = idFuncion
@@ -110,27 +110,40 @@ class Funciones:
     
     def listarFunciones():
         pass
+        
 
 
 
 class Pelicula:
-    def __init__(self, titulo, genero, duracion, descripcion, clasificacion):
+    def __init__(self, titulo, estreno, genero, duracion, director, descripcion, clasificacion):
+        self.__id = id
         self.__titulo = titulo
+        self.__estreno = estreno
         self.__genero = genero
         self.__duracion = duracion
+        self.__director = director
         self.__descripcion = descripcion
         self.__clasificacion = clasificacion
 
     #Getters
     @property
+    def id(self):
+        return self.__id
+    @property
     def titulo(self):
         return self.__titulo
+    @property
+    def estreno(self):
+        return self.__estreno
     @property
     def genero(self):
         return self.__genero
     @property
     def duracion(self):
         return self.__duracion
+    @property
+    def director(self):
+        return self.__director
     @property
     def descripcion(self):
         return self.__descripcion
@@ -139,15 +152,24 @@ class Pelicula:
         return self.__clasificacion
 
     #Setters
+    @id.setter
+    def id(self, nuevoid):
+        self.__id = nuevoid
     @titulo.setter
     def titulo(self, nuevoTitulo):
         self.__titulo = nuevoTitulo
+    @estreno.setter
+    def estreno(self, nuevoestreno):
+        self.__estreno = nuevoestreno
     @genero.setter
     def genero(self, nuevoGenero):
         self.__titulo = nuevoGenero
     @duracion.setter
     def duracion(self, nuevaDuracion):
         self.__duracion = nuevaDuracion
+    @director.setter
+    def director(self, nuevodirector):
+        self.__director = nuevodirector
     @descripcion.setter
     def descripcion(self, nuevaDescripcion):
         self.__descripcion = nuevaDescripcion
@@ -164,16 +186,27 @@ class Pelicula:
         datos += '\nClasificación: '+ self.__clasificacion
         return datos
 
+    def agregarPelicula(self):
+        conexion = Conexion_BD("BaseDeDatos.db")
+        conexion.insertar(f"INSERT INTO Peliculas (titulo, estreno, genero, duracion, director, descripcion, clasificacion) values (?,?,?,?,?,?,?)", (self.titulo, self.estreno, self.genero, self.duracion, self.director, self.descripcion, self.clasificacion))
+        conexion.commit()
+        conexion.cerrar()
+
+    
 
 
+
+peli=Pelicula('Top Gun Maverick','2022','Acción y drama',131,'Joseph Kosinski', 'Maverick debe entrenar a un grupo de élite de aviadores de Boeing F/A-18E/F Super Hornet reunidos por el vicealmirante Beau "Cyclone" Simpson y el contralmirante Solomon "Warlock" Bates para una misión urgente: bombardear una instalación de enriquecimiento de uranio de una nación rebelde sin nombre.','PG-13')
+#peli.quitarPelicula(4)
+#peli.agregarPelicula()
 class Catalogo:
     def __init__(self,peliculas=[]):
         self.__peliculas = peliculas
 
-    def listarPeliculas():
-        pass
-    #Agregar y quitar peliculas?
-
+    def listarPeliculas(self):
+        conexion = Conexion_BD("BaseDeDatos.db")
+        conexion.consulta("SELECT * FROM Pelicula")
+        conexion.cerrar()
 
 
         
