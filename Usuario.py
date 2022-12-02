@@ -165,11 +165,17 @@ class Cliente:
 
     def registrarse(self):
         conexion=Conexion_BD("BaseDeDatos.db")
-        if conexion.consulta(f"select correo from Clientes where correo='{self.correo}'")!=None:
-            conexion.insertar("insert into Clientes (usuario, password, correo, nombre, apellido, fechaNacimiento, tarjeta, tipoDeUsuario) values (?,?,?,?,?,?,?,?)",(self.usuario, self.password, self.correo, self.nombre, self.apellido, self.tarjetaDeDescuento, self.tipoDeUsuario))
+        if conexion.consulta(f"SELECT correo FROM Clientes WHERE correo = '{self.correo}'")!=None:
+            conexion.insertar("insert into Clientes (usuario, password, correo, nombre, apellido, fechaNacimiento, tarjetaDeDescuento, tipoDeUsuario) values (?,?,?,?,?,?,?,?)",(self.usuario, self.password, self.correo, self.nombre, self.apellido, self.fechaNacimiento,self.tarjetaDeDescuento, self.tipoDeUsuario))
     
-    def login():
-        pass
+    def login(self, usuario, password):
+        conexion=Conexion_BD("BaseDeDatos.db")
+        if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
+                print('Logged in')
+        else:
+            print('Revise los datos ingresados')
+        conexion.cerrar()
+
     def reservar():
         pass
     def moficarReserva():
@@ -178,6 +184,7 @@ class Cliente:
         pass
     def historialReservas():
         pass
+
 
 #con=Conexion_BD("BaseDeDatos.db")
 #con.consulta("CREATE TABLE Clientes (usuario Text Primary Key, password Text, correo Text, nombre Text, apellido Text, fechaNacimiento Text, id Integer auto increment, tarjetaDeDescuento Text, tipoDeUsuario Text)")

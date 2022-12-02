@@ -198,7 +198,7 @@ class Pelicula:
 
 peli=Pelicula('Top Gun Maverick','2022','Acción y drama',131,'Joseph Kosinski', 'Maverick debe entrenar a un grupo de élite de aviadores de Boeing F/A-18E/F Super Hornet reunidos por el vicealmirante Beau "Cyclone" Simpson y el contralmirante Solomon "Warlock" Bates para una misión urgente: bombardear una instalación de enriquecimiento de uranio de una nación rebelde sin nombre.','PG-13')
 #peli.quitarPelicula(4)
-peli.agregarPelicula()
+#peli.agregarPelicula()
 class Catalogo:
     def __init__(self,peliculas=[]):
         self.__peliculas = peliculas
