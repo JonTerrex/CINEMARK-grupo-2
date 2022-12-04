@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
 
-class App:
+class VDescuentos:
     def __init__(self, root):
         #setting title
         root.title("Cinemar")
@@ -33,7 +33,6 @@ class App:
         background.place(x=0,y=40,width=400,height=455)
 
         self.entryLunes=tk.Entry(root)
-        self.entryLunes["borderwidth"] = "0px"
         self.entryLunes["bg"] = '#ffffff'
         ft = tkFont.Font(family='Times',size=13)
         self.entryLunes["font"] = ft
@@ -43,7 +42,6 @@ class App:
         self.entryLunes.place(x=220,y=90,width=35,height=25)
 
         self.entryMartes=tk.Entry(root)
-        self.entryMartes["borderwidth"] = "0px"
         self.entryMartes["bg"] = '#ffffff'
         ft = tkFont.Font(family='Times',size=12)
         self.entryMartes["font"] = ft
@@ -53,7 +51,6 @@ class App:
         self.entryMartes.place(x=220,y=140,width=35,height=25)
 
         self.entryMiercoles=tk.Entry(root)
-        self.entryMiercoles["borderwidth"] = "0px"
         self.entryMiercoles["bg"] = '#ffffff'
         ft = tkFont.Font(family='Times',size=12)
         self.entryMiercoles["font"] = ft
@@ -63,7 +60,6 @@ class App:
         self.entryMiercoles.place(x=220,y=190,width=35,height=25)
 
         self.entryJueves=tk.Entry(root)
-        self.entryJueves["borderwidth"] = "0px"
         self.entryJueves["bg"] = '#ffffff'
         ft = tkFont.Font(family='Times',size=12)
         self.entryJueves["font"] = ft
@@ -73,7 +69,6 @@ class App:
         self.entryJueves.place(x=220,y=240,width=35,height=25)
 
         self.entryViernes=tk.Entry(root)
-        self.entryViernes["borderwidth"] = "0px"
         self.entryViernes["bg"] = '#ffffff'
         ft = tkFont.Font(family='Times',size=12)
         self.entryViernes["font"] = ft
@@ -83,7 +78,6 @@ class App:
         self.entryViernes.place(x=220,y=290,width=35,height=25)
 
         self.entrySabado=tk.Entry(root)
-        self.entrySabado["borderwidth"] = "0px"
         self.entrySabado["bg"] = '#ffffff'
         ft = tkFont.Font(family='Times',size=12)
         self.entrySabado["font"] = ft
@@ -93,7 +87,6 @@ class App:
         self.entrySabado.place(x=220,y=340,width=35,height=25)
 
         self.entryDomingo=tk.Entry(root)
-        self.entryDomingo["borderwidth"] = "0px"
         self.entryDomingo["bg"] = '#ffffff'
         ft = tkFont.Font(family='Times',size=12)
         self.entryDomingo["font"] = ft
@@ -167,23 +160,24 @@ class App:
 
         botonEditar=tk.Button(root)
         botonEditar["bg"] = "#c0c0c0"
-        ft = tkFont.Font(family='Times',size=10)
+        ft = tkFont.Font(family='Times',size=14)
         botonEditar["font"] = ft
         botonEditar["fg"] = "#000000"
         botonEditar["justify"] = "center"
-        botonEditar["text"] = "EDITAR"
-        botonEditar.place(x=110,y=450,width=75,height=25)
+        botonEditar["text"] = "Editar"
+        botonEditar.place(x=90,y=450,width=90,height=30)
         botonEditar["command"] = self.botonEditar_command
 
         botonGuardar=tk.Button(root)
         botonGuardar["bg"] = "#c0c0c0"
-        ft = tkFont.Font(family='Times',size=10)
+        ft = tkFont.Font(family='Times',size=14)
         botonGuardar["font"] = ft
         botonGuardar["fg"] = "#000000"
         botonGuardar["justify"] = "center"
-        botonGuardar["text"] = "GUARDAR"
-        botonGuardar.place(x=220,y=450,width=70,height=25)
+        botonGuardar["text"] = "Guardar"
+        botonGuardar.place(x=220,y=450,width=90,height=30)
         botonGuardar["command"] = self.botonGuardar_command
+
 
     def botonEditar_command(self):
         print("command")
@@ -194,5 +188,5 @@ class App:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = App(root)
+    app = VDescuentos(root)
     root.mainloop()

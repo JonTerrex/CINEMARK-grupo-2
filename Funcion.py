@@ -189,16 +189,16 @@ class Pelicula:
     def agregarPelicula(self):
         conexion = Conexion_BD("BaseDeDatos.db")
         conexion.insertar(f"INSERT INTO Peliculas (titulo, estreno, genero, duracion, director, descripcion, clasificacion) values (?,?,?,?,?,?,?)", (self.titulo, self.estreno, self.genero, self.duracion, self.director, self.descripcion, self.clasificacion))
-        conexion.commit()
-        conexion.cerrar()
+        #conexion.commit()
+        #conexion.cerrar()
 
     
 
 
 
-peli=Pelicula('Top Gun Maverick','2022','Acción y drama',131,'Joseph Kosinski', 'Maverick debe entrenar a un grupo de élite de aviadores de Boeing F/A-18E/F Super Hornet reunidos por el vicealmirante Beau "Cyclone" Simpson y el contralmirante Solomon "Warlock" Bates para una misión urgente: bombardear una instalación de enriquecimiento de uranio de una nación rebelde sin nombre.','PG-13')
+peli=Pelicula('El Menú','2022','Thriller',106,'Mark Mylod', 'Una pareja viaja para tener una experiencia culinaria única en el mundo, cuando el ingrediente secreto del platillo preparado por el chef tendrá un resultado sorprendente para la pareja','B-15')
 #peli.quitarPelicula(4)
-#peli.agregarPelicula()
+peli.agregarPelicula()
 class Catalogo:
     def __init__(self,peliculas=[]):
         self.__peliculas = peliculas

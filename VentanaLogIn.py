@@ -1,5 +1,11 @@
 import tkinter as tk
+from tkinter import messagebox
 import tkinter.font as tkFont
+from baseDeDatos import Conexion_BD
+from Usuario import Cliente
+from ventanaPrincipalAdmin import VPrincipalAdmin
+from ventanaPrincipalCliente import VPrincipalCliente
+from ventanaRegistro import VRegistro
 
 class App:
     def __init__(self, root):
@@ -16,7 +22,7 @@ class App:
 
         labelUsuario=tk.Label(root)
         labelUsuario["bg"] = "#ffffff"
-        ft = tkFont.Font(family='Times',size=12)
+        ft = tkFont.Font(family='Times',size=14)
         labelUsuario["font"] = ft
         labelUsuario["fg"] = "#333333"
         labelUsuario["justify"] = "center"
@@ -24,7 +30,6 @@ class App:
         labelUsuario.place(x=110,y=130,width=70,height=25)
 
         self.entryUsuario=tk.Entry(root)
-        self.entryUsuario["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=14)
         self.entryUsuario["font"] = ft
         self.entryUsuario["fg"] = "#939393"
@@ -34,15 +39,14 @@ class App:
 
         labelPassword=tk.Label(root)
         labelPassword["bg"] = "#ffffff"
-        ft = tkFont.Font(family='Times',size=12)
+        ft = tkFont.Font(family='Times',size=14)
         labelPassword["font"] = ft
         labelPassword["fg"] = "#333333"
         labelPassword["justify"] = "center"
         labelPassword["text"] = "Contraseña"
-        labelPassword.place(x=110,y=210,width=70,height=25)
+        labelPassword.place(x=110,y=210,width=80,height=25)
 
         self.entryPassword=tk.Entry(root)
-        self.entryPassword["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=14)
         self.entryPassword["font"] = ft
         self.entryPassword["fg"] = "#939393"
@@ -95,13 +99,27 @@ class App:
         botonRegistro["text"] = "Registrate"
         botonRegistro.place(x=90,y=410,width=120,height=30)
         botonRegistro["command"] = self.botonRegistro_command
-
+        
     def botonLogin_command(self):
-        print("command")
+        usuario = self.entryUsuario.get()
+        password = self.entryPassword.get()
+        conexion=Conexion_BD("BaseDeDatos.db")
+        if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
+            cliente1=conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password")
+            #clienteActivo=Cliente(cliente1[0][0],cliente1[0][1],cliente1[0][2],cliente1[0][3],cliente1[0][4],cliente1[0][5],cliente1[0][6],cliente1[0][7])
+            root.withdraw()
+            if cliente1[0][8] == 'Admin':
+                ventanaAdmin=VPrincipalAdmin(tk.Toplevel())
+            else:
+                ventanaCliente=VPrincipalCliente(tk.Toplevel())
+        else:
+            messagebox.showwarning("Error","Usuario o contraseña incorrecta")
+        conexion.cerrar()
 
 
     def botonRegistro_command(self):
-        pass
+        winRegistro=VRegistro(tk.Toplevel())
+
 
 if __name__ == "__main__":
     root = tk.Tk()
