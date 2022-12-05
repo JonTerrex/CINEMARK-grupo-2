@@ -1,6 +1,11 @@
 import tkinter as tk
+from tkinter import messagebox
 import tkinter.font as tkFont
 from baseDeDatos import Conexion_BD
+from Usuario import Cliente
+from ventanaPrincipalAdmin import VPrincipalAdmin
+from ventanaPrincipalCliente import VPrincipalCliente
+from ventanaRegistro import VRegistro
 
 class App:
     def __init__(self, root):
@@ -94,20 +99,27 @@ class App:
         botonRegistro["text"] = "Registrate"
         botonRegistro.place(x=90,y=410,width=120,height=30)
         botonRegistro["command"] = self.botonRegistro_command
-
+        
     def botonLogin_command(self):
         usuario = self.entryUsuario.get()
         password = self.entryPassword.get()
         conexion=Conexion_BD("BaseDeDatos.db")
         if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
-                print('Logged in')
+            cliente1=conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password")
+            #clienteActivo=Cliente(cliente1[0][0],cliente1[0][1],cliente1[0][2],cliente1[0][3],cliente1[0][4],cliente1[0][5],cliente1[0][6],cliente1[0][7])
+            root.withdraw()
+            if cliente1[0][8] == 'Admin':
+                ventanaAdmin=VPrincipalAdmin(tk.Toplevel())
+            else:
+                ventanaCliente=VPrincipalCliente(tk.Toplevel())
         else:
-            print('Revise los datos ingresados')
+            messagebox.showinfo("Error","Usuario o contraseña incorrecta")
         conexion.cerrar()
 
 
     def botonRegistro_command(self):
-        pass
+        winRegistro=VRegistro(tk.Toplevel())
+
 
 if __name__ == "__main__":
     root = tk.Tk()

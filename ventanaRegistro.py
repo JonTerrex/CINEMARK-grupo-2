@@ -1,7 +1,9 @@
 import tkinter as tk
 import tkinter.font as tkFont
+from tkinter import messagebox
+from Usuario import Cliente
 
-class App:
+class VRegistro:
     def __init__(self, root):
         root.title("Cinemar")
         width=600
@@ -96,7 +98,7 @@ class App:
         labelUsuario["font"] = ft
         labelUsuario["fg"] = "#d5d5d5"
         labelUsuario["justify"] = "center"
-        labelUsuario["text"] = "Usuario"
+        labelUsuario["text"] = "Usuario *"
         labelUsuario.place(x=10,y=250,width=103,height=30)
 
         self.entryUsuario=tk.Entry(root)
@@ -115,7 +117,7 @@ class App:
         labelPassword["font"] = ft
         labelPassword["fg"] = "#d5d5d5"
         labelPassword["justify"] = "center"
-        labelPassword["text"] = "Contraseña"
+        labelPassword["text"] = "Contraseña *"
         labelPassword.place(x=10,y=300,width=103,height=30)
 
         self.entryPassword=tk.Entry(root)
@@ -151,34 +153,34 @@ class App:
         botonRegistro["bg"] = "#ffffff"
         ft = tkFont.Font(family='Times',size=14)
         botonRegistro["font"] = ft
-        botonRegistro["fg"] = "#000000"
+        botonRegistro["fg"] = "#1f93ff"
         botonRegistro["justify"] = "center"
         botonRegistro["text"] = "REGISTRARSE"
-        botonRegistro.place(x=160,y=430,width=120,height=30)
+        botonRegistro.place(x=225,y=430,width=150,height=40)
         botonRegistro["command"] = self.botonRegistro_command
 
-        botonCancelar=tk.Button(root)
-        botonCancelar["bg"] = "#ffffff"
-        ft = tkFont.Font(family='Times',size=14)
-        botonCancelar["font"] = ft
-        botonCancelar["fg"] = "#000000"
-        botonCancelar["justify"] = "center"
-        botonCancelar["text"] = "CANCELAR"
-        botonCancelar.place(x=320,y=430,width=120,height=30)
-        botonCancelar["command"] = self.botonCancelar_command
+        #botonCancelar=tk.Button(root)
+        #botonCancelar["bg"] = "#ffffff"
+        #ft = tkFont.Font(family='Times',size=14)
+        #botonCancelar["font"] = ft
+        #botonCancelar["fg"] = "#1f93ff"
+        #botonCancelar["justify"] = "center"
+        #botonCancelar["text"] = "CANCELAR"
+        #botonCancelar.place(x=320,y=430,width=120,height=30)
+        #botonCancelar["command"] = self.botonCancelar_command
 
     def botonRegistro_command(self):
-        print(self.entryNombre.get()+'\n',
-        self.entryApellido.get()+'\n',
-        self.entryEmail.get()+'\n',
-        self.entryPassword.get()+'\n',
-        self.entryNacimiento.get()+'\n')
-
-
-    def botonCancelar_command(self):
-        print("Registro Cancelado")
+        if len(self.entryUsuario.get()) != 0 and len(self.entryPassword.get()) != 0:
+            cl=Cliente(self.entryUsuario.get(),self.entryPassword.get(),self.entryEmail.get(),self.entryNombre.get(),self.entryApellido.get(),self.entryNacimiento.get(),10,'No')
+            cl.registrarse()
+            messagebox.showinfo("Registro exitoso","Cierra la ventana de registro e inicia sesión")
+            self.root.destroy()
+        else: messagebox.showinfo("Error","Complete los campos de usuario y contraseña")
+    #def botonCancelar_command(self):
+        #win=VRegistro(root)
+        #win.destroy
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = App(root)
+    app = VRegistro(root)
     root.mainloop()

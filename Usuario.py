@@ -67,16 +67,19 @@ class Admin:
     def cargo(self, nuevoCargo):
         self.__cargo = nuevoCargo
 
-    def login():
-        pass
     def verReservaParticular():
         pass
-    def crearSala():
-        conexion=Conexion_BD()
+    def crearSala(self, totalButacas, es3D):
+        conexion=Conexion_BD("BaseDeDatos.db")
+        conexion.insertar(f"INSERT INTO Sala (totalButacas, es3D) values (?,?)", (totalButacas, es3D))
+       
     def modificarSala():
         pass
-    def eliminarSala():
-        pass
+    def eliminarSala(self,id_Sala):
+        conexion=Conexion_BD("BaseDeDatos.db")
+        conexion.consulta(f"DELETE FROM Sala WHERE id = {id_Sala}")
+        conexion.commit()
+        conexion.cerrar()
     def modificarDescuentos():
         pass
     def crearFuncion():
@@ -167,29 +170,37 @@ class Cliente:
         conexion=Conexion_BD("BaseDeDatos.db")
         if conexion.consulta(f"SELECT correo FROM Clientes WHERE correo = '{self.correo}'")!=None:
             conexion.insertar("insert into Clientes (usuario, password, correo, nombre, apellido, fechaNacimiento, tarjetaDeDescuento, tipoDeUsuario) values (?,?,?,?,?,?,?,?)",(self.usuario, self.password, self.correo, self.nombre, self.apellido, self.fechaNacimiento,self.tarjetaDeDescuento, self.tipoDeUsuario))
-    
+        
     def login(self, usuario, password):
         conexion=Conexion_BD("BaseDeDatos.db")
         if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
                 print('Logged in')
+
         else:
             print('Revise los datos ingresados')
         conexion.cerrar()
 
     def reservar():
         pass
-    def moficarReserva():
+    def modificarReserva():
         pass
     def verReservas():
-        pass
+        conexion=Conexion_BD('BaseDeDatos.db')
+        conexion.consulta(f"SELECT * FROM Reservas WHERE id = {id}")
+        mostrarreservas=conexion.consulta
+        print(mostrarreservas)
     def historialReservas():
         pass
 
 
 #con=Conexion_BD("BaseDeDatos.db")
+#con.consulta("INSERT INTO Clientes VALUES ('lisandrocinemark','licmark','lisandrogarcia@gmail.com','Lisandro', 'García','12/10/80','Jefe de ventas','No','Admin')")
 #con.consulta("CREATE TABLE Clientes (usuario Text Primary Key, password Text, correo Text, nombre Text, apellido Text, fechaNacimiento Text, id Integer auto increment, tarjetaDeDescuento Text, tipoDeUsuario Text)")
 #con.consulta("CREATE TABLE Administradores (usuario Text Primary Key, password Text, correo Text, id Integer auto increment, nombre Text, apellido Text, cargo Text, tipoDeUsuario Text)")
 #con.consulta("CREATE TABLE Peliculas (id Integer Primary Key autoincrement, Titulo Text, Estreno Text, Genero Text, Duracion Integer, Director Text, Descripcion Text, Clasificacion Text)")
-
+#con.consulta("CREATE TABLE Reservas (id Integer Primary Key autoincrement, id_Funcion Integer, id_Cliente Text, Foreign Key(id_Funcion) REFERENCES Funciones(id), Foreign Key(id_Cliente) REFERENCES Clientes(usuario))")
+#con.consulta("CREATE TABLE Salas (id Integer Primary Key, totalButacas Integer, es3D Text)")
+#con.consulta("CREATE TABLE Funciones (id Integer Primary Key autoincrement, Fecha Text, Hora Text, id_Sala Integer, id_Pelicula Integer, Foreign Key(id_Sala) REFERENCES Salas(id), Foreign Key(id_Pelicula) REFERENCES Peliculas(id))")
+#con.consulta("CREATE TABLE Detalle_Reservas (id Integer Primary Key autoincrement, id_Reserva Integer, butacasReservadas Integer, Foreign Key(id_Reserva) REFERENCES Reservas(id))")
 #con.commit()
 #con.cerrar()
