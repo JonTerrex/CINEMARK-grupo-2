@@ -170,11 +170,12 @@ class VRegistro:
         #botonCancelar["command"] = self.botonCancelar_command
 
     def botonRegistro_command(self):
-        cl=Cliente(self.entryUsuario.get(),self.entryPassword.get(),self.entryEmail.get(),self.entryNombre.get(),self.entryApellido.get(),self.entryNacimiento.get(),10,'No')
-        cl.registrarse()
-        messagebox.showinfo("Registro exitoso","Cierra la ventana de registro e inicia sesión")
-
-
+        if len(self.entryUsuario.get()) != 0 and len(self.entryPassword.get()) != 0:
+            cl=Cliente(self.entryUsuario.get(),self.entryPassword.get(),self.entryEmail.get(),self.entryNombre.get(),self.entryApellido.get(),self.entryNacimiento.get(),10,'No')
+            cl.registrarse()
+            messagebox.showinfo("Registro exitoso","Cierra la ventana de registro e inicia sesión")
+            #root.destroy()
+        else: messagebox.showinfo("Error","Complete los campos de usuario y contraseña")
     #def botonCancelar_command(self):
         #win=VRegistro(root)
         #win.destroy

@@ -164,7 +164,7 @@ class VDescuentos:
         botonEditar["font"] = ft
         botonEditar["fg"] = "#000000"
         botonEditar["justify"] = "center"
-        botonEditar["text"] = "Editar"
+        botonEditar["text"] = "Guardar"
         botonEditar.place(x=90,y=450,width=90,height=30)
         botonEditar["command"] = self.botonEditar_command
 
@@ -174,7 +174,7 @@ class VDescuentos:
         botonGuardar["font"] = ft
         botonGuardar["fg"] = "#000000"
         botonGuardar["justify"] = "center"
-        botonGuardar["text"] = "Guardar"
+        botonGuardar["text"] = "Cancelar"
         botonGuardar.place(x=220,y=450,width=90,height=30)
         botonGuardar["command"] = self.botonGuardar_command
 
