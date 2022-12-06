@@ -1,6 +1,9 @@
 import tkinter as tk
+from tkinter import *
 import tkinter.font as tkFont
 from tkinter import ttk
+from baseDeDatos import Conexion_BD
+from Funcion import Catalogo
 
 class VReservar:
     def __init__(self, root):
@@ -25,7 +28,7 @@ class VReservar:
         background.place(x=0,y=0,width=400,height=500)
 
         labelTitulo=tk.Label(root)
-        labelTitulo["bg"] = "#1e9fff"
+        labelTitulo["bg"] = "#1f93ff"
         ft = tkFont.Font(family='Times',size=16)
         labelTitulo["font"] = ft
         labelTitulo["fg"] = "#ffffff"
@@ -36,7 +39,7 @@ class VReservar:
         labelSubtitulo=tk.Label(root)
         ft = tkFont.Font(family='Times',size=14)
         labelSubtitulo["font"] = ft
-        labelSubtitulo["fg"] = "#1e9fff"
+        labelSubtitulo["fg"] = "#1f93ff"
         labelSubtitulo["justify"] = "center"
         labelSubtitulo["text"] = "Reservar entradas"
         labelSubtitulo.place(x=0,y=50,width=400,height=40)
@@ -50,9 +53,13 @@ class VReservar:
         labelPelicula["text"] = "Película"
         labelPelicula.place(x=50,y=150,width=60,height=25)
 
-        peliculas=('Avatar', 'Top Gun Maverick', 'El Menú')
-        menuPeliculas=ttk.Combobox(root, state="readonly", values=peliculas)
-        menuPeliculas.place(x=130,y=150)
+
+        conexion=Conexion_BD("BaseDeDatos.db")
+        pelis=conexion.consulta("SELECT Titulo FROM Peliculas")
+        conexion.commit()
+        conexion.cerrar()
+        self.menuPeliculas=ttk.Combobox(root,  values = pelis)
+        self.menuPeliculas.place(x=130,y=150)
 
         labelFuncion=tk.Label(root)
         labelFuncion["bg"] = "#ffffff"
@@ -64,8 +71,8 @@ class VReservar:
         labelFuncion.place(x=50,y=230,width=60,height=25)
 
         funciones=[('Jueves 7 18:00 Sala 2'),('Viernes 8 21:00 Sala 1'), ('Sábado 9 20:30 Sala 3'), ('Domingo 10 22:00 Sala 2')]
-        menuFunciones=ttk.Combobox(root, state="readonly", values=funciones)
-        menuFunciones.place(x=130,y=230)
+        self.menuFunciones=ttk.Combobox(root, state="readonly", values=funciones)
+        self.menuFunciones.place(x=130,y=230)
 
         botonReservar=tk.Button(root)
         botonReservar["bg"] = "#ffffff"
@@ -87,15 +94,21 @@ class VReservar:
         labelCantidad.place(x=50,y=310,width=70,height=25)
 
         cantidad=[]
-        for i in range(11):
+        for i in range(1,11):
             cantidad.append(i)
             i+=1
-        menuCantidad=ttk.Combobox(root, state="readonly", values=cantidad)
-        menuCantidad.place(x=130,y=310)
+        self.menuCantidad=ttk.Combobox(root, state="readonly", values=cantidad)
+        self.menuCantidad.place(x=130,y=310)
     
-
     def botonReservar_command(self):
-        print("command")
+        peli = self.menuPeliculas.get()
+        print(f"La peli seleccionada es {peli}")
+    def listarPeliculas():
+        conexion = Conexion_BD("BaseDeDatos.db")
+        conexion.consulta("SELECT Titulo FROM Peliculas")
+        conexion.commit()
+        conexion.cerrar()
+
 
 if __name__ == "__main__":
     root = tk.Tk()
