@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
-from ventanaDescuentos import VDescuentos
+from tkinter import ttk
+from ventanaReservar import VReservar
 
 class VPrincipalCliente:
     def __init__(self, root):
@@ -23,7 +24,7 @@ class VPrincipalCliente:
         background.place(x=0,y=0,width=600,height=500)
 
         labelTitulo=tk.Label(root)
-        labelTitulo["bg"] = "#01aaed"
+        labelTitulo["bg"] = "#1f93ff"
         ft = tkFont.Font(family='Times',size=18)
         labelTitulo["font"] = ft
         labelTitulo["fg"] = "#ffffff"
@@ -85,7 +86,7 @@ class VPrincipalCliente:
 
 
     def botonReservar_command(self):
-        pass
+        vReservar=VReservar(tk.Toplevel())
 
 
     def botonFunciones_command(self):

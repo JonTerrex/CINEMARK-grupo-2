@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 import tkinter.font as tkFont
 from baseDeDatos import Conexion_BD
 from Usuario import Cliente
@@ -107,7 +108,8 @@ class App:
         if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
             cliente1=conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password")
             #clienteActivo=Cliente(cliente1[0][0],cliente1[0][1],cliente1[0][2],cliente1[0][3],cliente1[0][4],cliente1[0][5],cliente1[0][6],cliente1[0][7])
-            root.withdraw()
+            #root.withdraw()
+            
             if cliente1[0][8] == 'Admin':
                 ventanaAdmin=VPrincipalAdmin(tk.Toplevel())
             else:

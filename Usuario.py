@@ -180,8 +180,10 @@ class Cliente:
             print('Revise los datos ingresados')
         conexion.cerrar()
 
-    def reservar():
-        pass
+    #def reservar(self):
+        #conexion=Conexion_BD('BaseDeDatos.db')
+        #conexion.insertar("INSERT INTO Reservas (id_Funcion, id_Cliente) VALUES (?,?)", (self.id_Funcion, self.id))
+
     def modificarReserva():
         pass
     def verReservas():
@@ -192,7 +194,6 @@ class Cliente:
     def historialReservas():
         pass
 
-
 #con=Conexion_BD("BaseDeDatos.db")
 #con.consulta("INSERT INTO Clientes VALUES ('lisandrocinemark','licmark','lisandrogarcia@gmail.com','Lisandro', 'García','12/10/80','Jefe de ventas','No','Admin')")
 #con.consulta("CREATE TABLE Clientes (usuario Text Primary Key, password Text, correo Text, nombre Text, apellido Text, fechaNacimiento Text, id Integer auto increment, tarjetaDeDescuento Text, tipoDeUsuario Text)")
@@ -200,7 +201,7 @@ class Cliente:
 #con.consulta("CREATE TABLE Peliculas (id Integer Primary Key autoincrement, Titulo Text, Estreno Text, Genero Text, Duracion Integer, Director Text, Descripcion Text, Clasificacion Text)")
 #con.consulta("CREATE TABLE Reservas (id Integer Primary Key autoincrement, id_Funcion Integer, id_Cliente Text, Foreign Key(id_Funcion) REFERENCES Funciones(id), Foreign Key(id_Cliente) REFERENCES Clientes(usuario))")
 #con.consulta("CREATE TABLE Salas (id Integer Primary Key, totalButacas Integer, es3D Text)")
-#con.consulta("CREATE TABLE Funciones (id Integer Primary Key autoincrement, Fecha Text, Hora Text, id_Sala Integer, id_Pelicula Integer, Foreign Key(id_Sala) REFERENCES Salas(id), Foreign Key(id_Pelicula) REFERENCES Peliculas(id))")
+#con.consulta("CREATE TABLE Funciones (id Integer Primary Key autoincrement, Fecha Text, Hora Text, totalButacas Integer, id_Sala Integer, id_Pelicula Integer, Foreign Key(id_Sala) REFERENCES Salas(id), Foreign Key(id_Pelicula) REFERENCES Peliculas(id))")
 #con.consulta("CREATE TABLE Detalle_Reservas (id Integer Primary Key autoincrement, id_Reserva Integer, butacasReservadas Integer, Foreign Key(id_Reserva) REFERENCES Reservas(id))")
 #con.commit()
 #con.cerrar()
