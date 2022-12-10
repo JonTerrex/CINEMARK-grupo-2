@@ -202,8 +202,35 @@ class Catalogo:
 
     def listarPeliculas(self):
         conexion = Conexion_BD("BaseDeDatos.db")
-        conexion.consulta("SELECT * FROM Pelicula")
+        conexion.consulta("SELECT Titulo FROM Peliculas")
+        conexion.commit()
         conexion.cerrar()
+
+class Reserva:
+    def __init__(self, id_Funcion, id_Cliente):
+        #self.__id = id
+        self.__id_Funcion = id_Funcion
+        self.__id_Cliente = id_Cliente
+
+    @property
+    def id(self):
+        return self.__id
+    @property
+    def id_Funcion(self):
+        return self.__id_Funcion
+    @property
+    def id_Cliente(self):
+        return self.__id_Cliente
+
+    @id.setter
+    def id(self, nuevoId):
+        self.__id = nuevoId
+    @id_Funcion.setter
+    def id_Funcion(self, nuevoId_Funcion):
+        self.__id_Funcion = nuevoId_Funcion
+    @id_Cliente.setter
+    def id_Cliente(self, nuevoId_Cliente):
+        self.__id_Cliente = nuevoId_Cliente
 
 
         

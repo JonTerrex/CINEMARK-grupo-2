@@ -14,14 +14,8 @@ class VPrincipalCliente:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        background=tk.Label(root)
-        background["bg"] = "#ffffff"
-        ft = tkFont.Font(family='Times',size=10)
-        background["font"] = ft
-        background["fg"] = "#333333"
-        background["justify"] = "center"
-        background["text"] = ""
-        background.place(x=0,y=0,width=600,height=500)
+        mainFrame = ttk.Frame(root)
+
 
         labelTitulo=tk.Label(root)
         labelTitulo["bg"] = "#1f93ff"
@@ -44,7 +38,7 @@ class VPrincipalCliente:
 
         labelSubtitulo=tk.Label(root)
         labelSubtitulo["anchor"] = "center"
-        ft = tkFont.Font(family='Times',size=14)
+        ft = tkFont.Font(family='Times',size=16)
         labelSubtitulo["font"] = ft
         labelSubtitulo["fg"] = "#01aaed"
         labelSubtitulo["justify"] = "center"

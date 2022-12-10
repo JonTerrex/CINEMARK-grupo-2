@@ -23,7 +23,7 @@ class VPrincipalAdmin:
         background.place(x=0,y=0,width=600,height=500)
 
         labelTitulo=tk.Label(root)
-        labelTitulo["bg"] = "#01aaed"
+        labelTitulo["bg"] = "#1f93ff"
         ft = tkFont.Font(family='Times',size=18)
         labelTitulo["font"] = ft
         labelTitulo["fg"] = "#ffffff"
@@ -45,7 +45,7 @@ class VPrincipalAdmin:
         labelSubtitulo["anchor"] = "center"
         ft = tkFont.Font(family='Times',size=14)
         labelSubtitulo["font"] = ft
-        labelSubtitulo["fg"] = "#01aaed"
+        labelSubtitulo["fg"] = "#1f93ff"
         labelSubtitulo["justify"] = "center"
         labelSubtitulo["text"] = "Bienvenido"
         labelSubtitulo.place(x=0,y=60,width=600,height=40)
