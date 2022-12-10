@@ -4,7 +4,8 @@ from tkinter import ttk
 from ventanaReservar import VReservar
 
 class VPrincipalCliente:
-    def __init__(self, root):
+    def __init__(self, root, clienteActivo):
+        self.cliente = clienteActivo
         root.title("Cinemark")
         width=600
         height=500
@@ -80,7 +81,7 @@ class VPrincipalCliente:
 
 
     def botonReservar_command(self):
-        vReservar=VReservar(tk.Toplevel())
+        vReservar=VReservar(tk.Toplevel(), self.cliente)
 
 
     def botonFunciones_command(self):

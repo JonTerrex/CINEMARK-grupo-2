@@ -79,13 +79,12 @@ class App:
         conexion=Conexion_BD("BaseDeDatos.db")
         if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
             cliente1=conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password")
-            #clienteActivo=Cliente(cliente1[0][0],cliente1[0][1],cliente1[0][2],cliente1[0][3],cliente1[0][4],cliente1[0][5],cliente1[0][6],cliente1[0][7])
-            #root.withdraw()
+            clienteActivo=Cliente(*cliente1[0])
             
             if cliente1[0][8] == 'Admin':
                 ventanaAdmin=VPrincipalAdmin(tk.Toplevel())
             else:
-                ventanaCliente=VPrincipalCliente(tk.Toplevel())
+                ventanaCliente=VPrincipalCliente(tk.Toplevel(),clienteActivo)
         else:
             messagebox.showinfo("Error","Usuario o contraseña incorrecta")
         conexion.cerrar()

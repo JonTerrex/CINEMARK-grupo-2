@@ -194,8 +194,8 @@ class Cliente:
         print(mostrarReservas)
     def historialReservas():
         pass
-yo=Admin('sdf','fdsf','fsdf',234,'dsfs','afaaf','sdf')
-yo.crearFuncion('14/12/22','21:00',45,10)
+#yo=Admin('sdf','fdsf','fsdf',234,'dsfs','afaaf','sdf')
+#yo.crearFuncion('14/12/22','21:00',45,10)
 #con=Conexion_BD("BaseDeDatos.db")
 #con.consulta("INSERT INTO Clientes VALUES ('lisandrocinemark','licmark','lisandrogarcia@gmail.com','Lisandro', 'García','12/10/80','Jefe de ventas','No','Admin')")
 #con.consulta("CREATE TABLE Clientes (usuario Text Primary Key, password Text, correo Text, nombre Text, apellido Text, fechaNacimiento Text, id Integer auto increment, tarjetaDeDescuento Text, tipoDeUsuario Text)")
