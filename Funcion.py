@@ -203,12 +203,11 @@ class Catalogo:
     def listarPeliculas(self):
         conexion = Conexion_BD("BaseDeDatos.db")
         conexion.consulta("SELECT Titulo FROM Peliculas")
-        conexion.commit()
         conexion.cerrar()
 
 class Reserva:
     def __init__(self, id_Funcion, id_Cliente):
-        #self.__id = id
+        self.__id = id
         self.__id_Funcion = id_Funcion
         self.__id_Cliente = id_Cliente
 
@@ -231,6 +230,12 @@ class Reserva:
     @id_Cliente.setter
     def id_Cliente(self, nuevoId_Cliente):
         self.__id_Cliente = nuevoId_Cliente
+
+    def reservar(self):
+        conexion = Conexion_BD("BaseDeDatos.db")
+        conexion.consulta("INSERT INTO Reservas (id_Funcion, id_Cliente) VALUES (?,?)", (self.id_Funcion, self.id_Cliente))
+        conexion.commit()
+        conexion.cerrar()
 
 
         
