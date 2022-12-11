@@ -233,9 +233,7 @@ class Reserva:
 
     def reservar(self):
         conexion = Conexion_BD("BaseDeDatos.db")
-        conexion.consulta("INSERT INTO Reservas (id_Funcion, id_Cliente) VALUES (?,?)", (self.id_Funcion, self.id_Cliente))
-        conexion.commit()
-        conexion.cerrar()
+        conexion.insertar(f"INSERT INTO Reservas(id_Funcion, id_Cliente) VALUES (?,?)", (self.id_Funcion, self.id_Cliente))
 
 
         

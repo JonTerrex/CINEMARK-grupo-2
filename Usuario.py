@@ -203,7 +203,7 @@ class Cliente:
 #con.consulta("CREATE TABLE Peliculas (id Integer Primary Key autoincrement, Titulo Text, Estreno Text, Genero Text, Duracion Integer, Director Text, Descripcion Text, Clasificacion Text)")
 #con.consulta("CREATE TABLE Reservas (id Integer Primary Key autoincrement, id_Funcion Integer, id_Cliente Text, Foreign Key(id_Funcion) REFERENCES Funciones(id), Foreign Key(id_Cliente) REFERENCES Clientes(usuario))")
 #con.consulta("CREATE TABLE Salas (id Integer Primary Key, totalButacas Integer, es3D Text)")
-#con.consulta("CREATE TABLE Funciones (id Integer Primary Key autoincrement, Fecha Text, Hora Text, totalButacas Integer, id_Sala Integer, id_Pelicula Integer, Foreign Key(id_Sala) REFERENCES Salas(id), Foreign Key(id_Pelicula) REFERENCES Peliculas(id))")
+#con.consulta("CREATE TABLE Funciones (id Integer Primary Key autoincrement, Fecha Text, Hora Text, id_Sala Integer, id_Pelicula Integer, Foreign Key(id_Sala) REFERENCES Salas(id), Foreign Key(id_Pelicula) REFERENCES Peliculas(id))")
 #con.consulta("CREATE TABLE Detalle_Reservas (id Integer Primary Key autoincrement, id_Reserva Integer, butacasReservadas Integer, Foreign Key(id_Reserva) REFERENCES Reservas(id))")
 #con.consulta("INSERT INTO Peliculas (Titulo, Estreno, Genero, Duracion, Director, Descripcion, Clasificacion) VALUES ('Black Adam','2022','Acción. Aventura',125,'Jaume Collet-Serra','Unos arqueólogos liberan de su tumba a Black Adam, quien llevaba 5000 años preso tras haber recibido los poderes de los dioses. De nuevo entre los humanos, Black Adam se dispone a imponer su justicia, muy diferente a la del mundo en el que despertó.','PG-13')")
 #con.commit()

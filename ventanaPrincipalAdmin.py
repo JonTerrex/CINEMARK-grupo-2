@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
 from ventanaDescuentos import VDescuentos
+from VentanaFuncion import VFuncion
 
 class VPrincipalAdmin:
     def __init__(self, root):
@@ -90,7 +91,7 @@ class VPrincipalAdmin:
 
 
     def botonFunciones_command(self):
-        print("command")
+        winFuncion = VFuncion(tk.Toplevel())
 
 
     def botonReservas_command(self):

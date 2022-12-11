@@ -80,7 +80,7 @@ class VReservar:
         self.c.place(x=130,y=307)
     def cargarFuncion(self, event):
         conexion=Conexion_BD("BaseDeDatos.db")
-        self.funciones=conexion.consulta(f"SELECT f.id, f.id_Pelicula, Fecha, Hora FROM Funciones f INNER JOIN Peliculas p ON f.id_Pelicula = p.id WHERE p.Titulo = '{self.menuPeliculas.get()}'")
+        self.funciones=conexion.consulta(f"SELECT f.id, f.id_Pelicula, Fecha, Hora, id_Sala FROM Funciones f INNER JOIN Peliculas p ON f.id_Pelicula = p.id WHERE p.Titulo = '{self.menuPeliculas.get()}'")
         funcionesCombobox = []
         for funcion in self.funciones:
             funcionesCombobox.append(funcion[2:])
@@ -91,13 +91,17 @@ class VReservar:
         else:
             self.menuFunciones["state"] = 'disabled'
             self.botonReservar["state"] = 'disabled'
-        print(funcionesCombobox)
-        print(self.funciones)
+        #print(funcionesCombobox)
         conexion.cerrar()
 
     def botonReservar_command(self):
-        print(self.cliente)
-        print(self.menuPeliculas.get())
+        """print(self.cliente.usuario)
+        print(self.funciones)
+        print(self.menuFunciones.current())
+        print("id funcion=> ", self.funciones[self.menuFunciones.current()][0])"""
+        reserva_actual = Reserva(self.funciones[self.menuFunciones.current()][0],self.cliente.usuario)
+        reserva_actual.reservar()
+        
         #funcion = self.menuFunciones.get()
         #conexion=Conexion_BD("BaseDeDatos.db")
         #conexion.consulta(f"INSERT INTO Reservas (id_Funcion, id_Cliente) VALUES ({reservaPrueba.id_Funcion}, {reservaPrueba.id_Cliente})")
