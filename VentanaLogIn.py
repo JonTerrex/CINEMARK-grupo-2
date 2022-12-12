@@ -42,7 +42,7 @@ class App:
         labelPassword["text"] = "Contraseña"
         labelPassword.place(x=110,y=210)
 
-        self.entryPassword=ttk.Entry(root)
+        self.entryPassword=ttk.Entry(root, show="*")
         self.entryPassword["text"] = ""
         self.entryPassword.place(x=80,y=240,width=140,height=25)
 
@@ -65,11 +65,11 @@ class App:
 
         labelSinCuenta=ttk.Label(root)
         labelSinCuenta["text"] = "¿No tenés cuenta?"
-        labelSinCuenta.place(x=90,y=380,width=130,height=25)
+        labelSinCuenta.place(x=90,y=380)
 
         botonRegistro=ttk.Button(root)
         botonRegistro["text"] = "Registrate"
-        botonRegistro.place(x=90,y=410,width=120,height=30)
+        botonRegistro.place(x=95,y=410)
         botonRegistro["command"] = self.botonRegistro_command
         
         
@@ -97,4 +97,5 @@ class App:
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
+    app.entryUsuario.focus()
     root.mainloop()

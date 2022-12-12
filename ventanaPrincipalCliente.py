@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 from tkinter import ttk
 from ventanaReservar import VReservar
+from VentanaPeliculasCliente import VPeliculasCliente
 
 class VPrincipalCliente:
     def __init__(self, root, clienteActivo):
@@ -24,7 +25,7 @@ class VPrincipalCliente:
         labelTitulo["font"] = ft
         labelTitulo["fg"] = "#ffffff"
         labelTitulo["justify"] = "center"
-        labelTitulo["text"] = "Cinemark - Menú Principal"
+        labelTitulo["text"] = "Cinemar - Menú Principal"
         labelTitulo.place(x=0,y=0,width=600,height=50)
 
         botonPeliculas=tk.Button(root)
@@ -77,7 +78,7 @@ class VPrincipalCliente:
         botonReservas["command"] = self.botonReservas_command
 
     def botonPeliculas_command(self):
-        print("command")
+        winPelis = VPeliculasCliente(tk.Toplevel())
 
 
     def botonReservar_command(self):
