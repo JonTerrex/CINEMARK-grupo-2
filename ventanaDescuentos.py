@@ -1,18 +1,21 @@
 import tkinter as tk
 import tkinter.font as tkFont
+from tkinter import ttk
+from tkinter import messagebox
+from baseDeDatos import Conexion_BD
 
 class VDescuentos:
     def __init__(self, root):
-        #setting title
         root.title("Cinemar")
-        #setting window size
-        width=400
+        width=300
         height=500
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
+
+        mainFrame = ttk.Frame(root)
 
         labelTitulo=tk.Label(root)
         labelTitulo["bg"] = "#1e90ff"
@@ -21,170 +24,116 @@ class VDescuentos:
         labelTitulo["fg"] = "#ffffff"
         labelTitulo["justify"] = "center"
         labelTitulo["text"] = "Cinemar - Descuentos"
-        labelTitulo.place(x=0,y=0,width=400,height=40)
+        labelTitulo.place(x=0,y=0,width=300,height=40)
 
-        background=tk.Label(root)
-        background["bg"] = "#ffffff"
-        ft = tkFont.Font(family='Times',size=10)
-        background["font"] = ft
-        background["fg"] = "#333333"
-        background["justify"] = "center"
-        background["text"] = ""
-        background.place(x=0,y=40,width=400,height=455)
 
-        self.entryLunes=tk.Entry(root)
-        self.entryLunes["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=13)
-        self.entryLunes["font"] = ft
-        self.entryLunes["fg"] = "#333333"
-        self.entryLunes["justify"] = "center"
-        self.entryLunes["text"] = "20%"
-        self.entryLunes.place(x=220,y=90,width=35,height=25)
+        conexion = Conexion_BD("BaseDeDatos.db")
+        descActuales = conexion.consulta("SELECT * FROM Descuentos")
+        conexion.cerrar()
+        
+        actualesLabel = ttk.Label(root)
+        actualesLabel["text"] = "Descuentos \n  Actuales"
+        actualesLabel.place(x=165, y=50)
 
-        self.entryMartes=tk.Entry(root)
-        self.entryMartes["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        self.entryMartes["font"] = ft
-        self.entryMartes["fg"] = "#333333"
-        self.entryMartes["justify"] = "center"
-        self.entryMartes["text"] = "15%"
-        self.entryMartes.place(x=220,y=140,width=35,height=25)
+        LunesActual = ttk.Label(root)
+        LunesActual.place(x=190, y=90)
+        LunesActual["text"] = descActuales[0][0]
 
-        self.entryMiercoles=tk.Entry(root)
-        self.entryMiercoles["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        self.entryMiercoles["font"] = ft
-        self.entryMiercoles["fg"] = "#333333"
-        self.entryMiercoles["justify"] = "center"
-        self.entryMiercoles["text"] = "20%"
-        self.entryMiercoles.place(x=220,y=190,width=35,height=25)
+        MartesActual = ttk.Label(root)
+        MartesActual.place(x=190, y=140)
+        MartesActual["text"] = descActuales[0][1]
 
-        self.entryJueves=tk.Entry(root)
-        self.entryJueves["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        self.entryJueves["font"] = ft
-        self.entryJueves["fg"] = "#333333"
-        self.entryJueves["justify"] = "center"
-        self.entryJueves["text"] = "15%"
-        self.entryJueves.place(x=220,y=240,width=35,height=25)
+        MiercolesActual = ttk.Label(root)
+        MiercolesActual.place(x=190, y=190)
+        MiercolesActual["text"] = descActuales[0][2]
 
-        self.entryViernes=tk.Entry(root)
-        self.entryViernes["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        self.entryViernes["font"] = ft
-        self.entryViernes["fg"] = "#333333"
-        self.entryViernes["justify"] = "center"
-        self.entryViernes["text"] = "10%"
-        self.entryViernes.place(x=220,y=290,width=35,height=25)
+        JuevesActual = ttk.Label(root)
+        JuevesActual.place(x=190, y=240)
+        JuevesActual["text"] = descActuales[0][3]
 
-        self.entrySabado=tk.Entry(root)
-        self.entrySabado["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        self.entrySabado["font"] = ft
-        self.entrySabado["fg"] = "#333333"
-        self.entrySabado["justify"] = "center"
-        self.entrySabado["text"] = "10%"
-        self.entrySabado.place(x=220,y=340,width=35,height=25)
+        ViernesActual = ttk.Label(root)
+        ViernesActual.place(x=190, y=290)
+        ViernesActual["text"] = descActuales[0][4]
 
-        self.entryDomingo=tk.Entry(root)
-        self.entryDomingo["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        self.entryDomingo["font"] = ft
-        self.entryDomingo["fg"] = "#333333"
-        self.entryDomingo["justify"] = "center"
-        self.entryDomingo["text"] = "10%"
-        self.entryDomingo.place(x=220,y=390,width=35,height=25)
+        SabadoActual = ttk.Label(root)
+        SabadoActual.place(x=190, y=340)
+        SabadoActual["text"] = descActuales[0][5]
 
-        labelLunes=tk.Label(root)
-        labelLunes["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        labelLunes["font"] = ft
-        labelLunes["fg"] = "#333333"
-        labelLunes["justify"] = "right"
+        DomingoActual = ttk.Label(root)
+        DomingoActual.place(x=190, y=390)
+        DomingoActual["text"] = descActuales[0][6]
+
+        self.entryLunes=ttk.Entry(root)
+        self.entryLunes["text"] = ""
+        self.entryLunes.place(x=120,y=90,width=35)
+
+        self.entryMartes=ttk.Entry(root)
+        self.entryMartes["text"] = ""
+        self.entryMartes.place(x=120,y=140,width=35)
+
+        self.entryMiercoles=ttk.Entry(root)
+        self.entryMiercoles["text"] = ""
+        self.entryMiercoles.place(x=120,y=190,width=35)
+
+        self.entryJueves=ttk.Entry(root)
+        self.entryJueves["text"] = ""
+        self.entryJueves.place(x=120,y=240,width=35)
+
+        self.entryViernes=ttk.Entry(root)
+        self.entryViernes["text"] = ""
+        self.entryViernes.place(x=120,y=290,width=35)
+
+        self.entrySabado=ttk.Entry(root)
+        self.entrySabado["text"] = ""
+        self.entrySabado.place(x=120,y=340,width=35)
+
+        self.entryDomingo=ttk.Entry(root)
+        self.entryDomingo["text"] = ""
+        self.entryDomingo.place(x=120,y=390,width=35)
+
+        labelLunes=ttk.Label(root)
         labelLunes["text"] = "LUNES"
-        labelLunes.place(x=130,y=90,width=70,height=25)
+        labelLunes.place(x=30,y=90)
 
-        labelMartes=tk.Label(root)
-        labelMartes["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        labelMartes["font"] = ft
-        labelMartes["fg"] = "#333333"
-        labelMartes["justify"] = "right"
+        labelMartes=ttk.Label(root)
         labelMartes["text"] = "MARTES"
-        labelMartes.place(x=130,y=140,width=70,height=25)
+        labelMartes.place(x=30,y=140)
 
-        labelMiercoles=tk.Label(root)
-        labelMiercoles["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        labelMiercoles["font"] = ft
-        labelMiercoles["fg"] = "#333333"
-        labelMiercoles["justify"] = "right"
+        labelMiercoles=ttk.Label(root)
         labelMiercoles["text"] = "MIÉRCOLES"
-        labelMiercoles.place(x=130,y=190,width=70,height=25)
+        labelMiercoles.place(x=30,y=190)
 
-        labelJueves=tk.Label(root)
-        labelJueves["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        labelJueves["font"] = ft
-        labelJueves["fg"] = "#333333"
-        labelJueves["justify"] = "right"
+        labelJueves=ttk.Label(root)
         labelJueves["text"] = "JUEVES"
-        labelJueves.place(x=130,y=240,width=70,height=25)
+        labelJueves.place(x=30,y=240)
 
-        labelViernes=tk.Label(root)
-        labelViernes["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        labelViernes["font"] = ft
-        labelViernes["fg"] = "#333333"
-        labelViernes["justify"] = "right"
+        labelViernes=ttk.Label(root)
         labelViernes["text"] = "VIERNES"
-        labelViernes.place(x=130,y=290,width=70,height=25)
+        labelViernes.place(x=30,y=290)
 
-        labelSabado=tk.Label(root)
-        labelSabado["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        labelSabado["font"] = ft
-        labelSabado["fg"] = "#333333"
-        labelSabado["justify"] = "right"
+        labelSabado=ttk.Label(root)
         labelSabado["text"] = "SÁBADO"
-        labelSabado.place(x=130,y=340,width=70,height=25)
+        labelSabado.place(x=30,y=340)
 
-        labelDomingo=tk.Label(root)
-        labelDomingo["bg"] = '#ffffff'
-        ft = tkFont.Font(family='Times',size=12)
-        labelDomingo["font"] = ft
-        labelDomingo["fg"] = "#333333"
-        labelDomingo["justify"] = "right"
+        labelDomingo=ttk.Label(root)
         labelDomingo["text"] = "DOMINGO"
-        labelDomingo.place(x=130,y=390,width=70,height=25)
+        labelDomingo.place(x=30,y=390)
 
-        botonGuardar=tk.Button(root)
-        botonGuardar["bg"] = "#c0c0c0"
-        ft = tkFont.Font(family='Times',size=14)
-        botonGuardar["font"] = ft
-        botonGuardar["fg"] = "#000000"
-        botonGuardar["justify"] = "center"
+        botonGuardar=ttk.Button(root)
         botonGuardar["text"] = "Guardar"
-        botonGuardar.place(x=90,y=450,width=90,height=30)
+        botonGuardar.place(x=100,y=450)
         botonGuardar["command"] = self.botonGuardar_command
-
-        botonCancelar=tk.Button(root)
-        botonCancelar["bg"] = "#c0c0c0"
-        ft = tkFont.Font(family='Times',size=14)
-        botonCancelar["font"] = ft
-        botonCancelar["fg"] = "#000000"
-        botonCancelar["justify"] = "center"
-        botonCancelar["text"] = "Cancelar"
-        botonCancelar.place(x=220,y=450,width=90,height=30)
-        botonCancelar["command"] = self.botonCancelar_command
 
 
     def botonGuardar_command(self):
-        print("command")
-
-
-    def botonCancelar_command(self):
-        pass
+        if self.entryLunes.get() == "" or self.entryMartes.get() == "" or self.entryMiercoles.get() == "" or self.entryJueves.get() == "" or self.entryViernes.get() == "" or self.entrySabado.get() == "" or self.entryDomingo.get() == "":
+            messagebox.showerror("Error","Por favor complete todos los campos")
+        else:
+            conexion = Conexion_BD("BaseDeDatos.db")
+            conexion.consulta(f"UPDATE Descuentos SET Lunes='{self.entryLunes.get()}', Martes='{self.entryMartes.get()}', Miércoles='{self.entryMiercoles.get()}', Jueves='{self.entryJueves.get()}', Viernes='{self.entryViernes.get()}', Sábado='{self.entrySabado.get()}', Domingo='{self.entryDomingo.get()}'")
+            conexion.commit()
+            conexion.cerrar()
+            messagebox.showinfo("","Los descuentos se han actualizado exitosamente")
 
 if __name__ == "__main__":
     root = tk.Tk()
