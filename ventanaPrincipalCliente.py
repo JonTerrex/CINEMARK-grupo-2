@@ -1,9 +1,12 @@
 import tkinter as tk
 import tkinter.font as tkFont
-from ventanaDescuentos import VDescuentos
+from tkinter import ttk
+from ventanaReservar import VReservar
+from VentanaPeliculasCliente import VPeliculasCliente
 
 class VPrincipalCliente:
-    def __init__(self, root):
+    def __init__(self, root, clienteActivo):
+        self.cliente = clienteActivo
         root.title("Cinemark")
         width=600
         height=500
@@ -13,22 +16,16 @@ class VPrincipalCliente:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        background=tk.Label(root)
-        background["bg"] = "#ffffff"
-        ft = tkFont.Font(family='Times',size=10)
-        background["font"] = ft
-        background["fg"] = "#333333"
-        background["justify"] = "center"
-        background["text"] = ""
-        background.place(x=0,y=0,width=600,height=500)
+        mainFrame = ttk.Frame(root)
+
 
         labelTitulo=tk.Label(root)
-        labelTitulo["bg"] = "#01aaed"
+        labelTitulo["bg"] = "#1f93ff"
         ft = tkFont.Font(family='Times',size=18)
         labelTitulo["font"] = ft
         labelTitulo["fg"] = "#ffffff"
         labelTitulo["justify"] = "center"
-        labelTitulo["text"] = "Cinemark - Menú Principal"
+        labelTitulo["text"] = "Cinemar - Menú Principal"
         labelTitulo.place(x=0,y=0,width=600,height=50)
 
         botonPeliculas=tk.Button(root)
@@ -43,7 +40,7 @@ class VPrincipalCliente:
 
         labelSubtitulo=tk.Label(root)
         labelSubtitulo["anchor"] = "center"
-        ft = tkFont.Font(family='Times',size=14)
+        ft = tkFont.Font(family='Times',size=16)
         labelSubtitulo["font"] = ft
         labelSubtitulo["fg"] = "#01aaed"
         labelSubtitulo["justify"] = "center"
@@ -81,11 +78,11 @@ class VPrincipalCliente:
         botonReservas["command"] = self.botonReservas_command
 
     def botonPeliculas_command(self):
-        print("command")
+        winPelis = VPeliculasCliente(tk.Toplevel())
 
 
     def botonReservar_command(self):
-        pass
+        vReservar=VReservar(tk.Toplevel(), self.cliente)
 
 
     def botonFunciones_command(self):

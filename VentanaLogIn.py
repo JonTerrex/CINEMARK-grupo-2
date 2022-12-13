@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 import tkinter.font as tkFont
 from baseDeDatos import Conexion_BD
 from Usuario import Cliente
@@ -9,9 +10,7 @@ from ventanaRegistro import VRegistro
 
 class App:
     def __init__(self, root):
-        #setting title
         root.title("Cinemar Login")
-        #setting window size
         width=300
         height=500
         screenwidth = root.winfo_screenwidth()
@@ -20,39 +19,7 @@ class App:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        labelUsuario=tk.Label(root)
-        labelUsuario["bg"] = "#ffffff"
-        ft = tkFont.Font(family='Times',size=14)
-        labelUsuario["font"] = ft
-        labelUsuario["fg"] = "#333333"
-        labelUsuario["justify"] = "center"
-        labelUsuario["text"] = "Usuario"
-        labelUsuario.place(x=110,y=130,width=70,height=25)
-
-        self.entryUsuario=tk.Entry(root)
-        ft = tkFont.Font(family='Times',size=14)
-        self.entryUsuario["font"] = ft
-        self.entryUsuario["fg"] = "#939393"
-        self.entryUsuario["justify"] = "center"
-        self.entryUsuario["text"] = ""
-        self.entryUsuario.place(x=80,y=160,width=140,height=25)
-
-        labelPassword=tk.Label(root)
-        labelPassword["bg"] = "#ffffff"
-        ft = tkFont.Font(family='Times',size=14)
-        labelPassword["font"] = ft
-        labelPassword["fg"] = "#333333"
-        labelPassword["justify"] = "center"
-        labelPassword["text"] = "Contraseña"
-        labelPassword.place(x=110,y=210,width=80,height=25)
-
-        self.entryPassword=tk.Entry(root)
-        ft = tkFont.Font(family='Times',size=14)
-        self.entryPassword["font"] = ft
-        self.entryPassword["fg"] = "#939393"
-        self.entryPassword["justify"] = "center"
-        self.entryPassword["text"] = ""
-        self.entryPassword.place(x=80,y=240,width=140,height=25)
+        mainFrame=ttk.Frame(root)
 
         labelTitulo=tk.Label(root)
         labelTitulo["bg"] = "#1f93ff"
@@ -63,6 +30,24 @@ class App:
         labelTitulo["text"] = "Bienvenido a Cinemar"
         labelTitulo.place(x=0,y=0,width=300,height=66)
 
+        labelUsuario=ttk.Label(root)
+        labelUsuario["text"] = "Usuario"
+        labelUsuario.place(x=120,y=130)
+
+        self.entryUsuario=ttk.Entry(root)
+        self.entryUsuario["text"] = ""
+        self.entryUsuario.place(x=80,y=160,width=140,height=25)
+
+        labelPassword=tk.Label(root)
+        labelPassword["text"] = "Contraseña"
+        labelPassword.place(x=110,y=210)
+
+        self.entryPassword=ttk.Entry(root, show="*")
+        self.entryPassword["text"] = ""
+        self.entryPassword.place(x=80,y=240,width=140,height=25)
+
+        
+
         labelLogin=tk.Label(root)
         labelLogin["bg"] = "#ffffff"
         ft = tkFont.Font(family='Times',size=14)
@@ -72,33 +57,21 @@ class App:
         labelLogin["text"] = "Ingresá a tu cuenta"
         labelLogin.place(x=0,y=65,width=300,height=30)
 
-        botonLogin=tk.Button(root)
-        botonLogin["bg"] = "#1f93ff"
-        ft = tkFont.Font(family='Times',size=14)
-        botonLogin["font"] = ft
-        botonLogin["fg"] = "#1f93ff"
-        botonLogin["justify"] = "center"
+        botonLogin=ttk.Button(root)
         botonLogin["text"] = "Iniciar Sesión"
         botonLogin.place(x=90,y=280,width=120,height=30)
         botonLogin["command"] = self.botonLogin_command
+        root.bind('<Return>', lambda e: botonLogin.invoke())
 
-        labelSinCuenta=tk.Label(root)
-        ft = tkFont.Font(family='Times',size=12)
-        labelSinCuenta["font"] = ft
-        labelSinCuenta["fg"] = "#939393"
-        labelSinCuenta["justify"] = "center"
+        labelSinCuenta=ttk.Label(root)
         labelSinCuenta["text"] = "¿No tenés cuenta?"
-        labelSinCuenta.place(x=90,y=380,width=130,height=25)
+        labelSinCuenta.place(x=90,y=380)
 
-        botonRegistro=tk.Button(root)
-        botonRegistro["bg"] = "#1e9fff"
-        ft = tkFont.Font(family='Times',size=14)
-        botonRegistro["font"] = ft
-        botonRegistro["fg"] = "#1f93ff"
-        botonRegistro["justify"] = "center"
+        botonRegistro=ttk.Button(root)
         botonRegistro["text"] = "Registrate"
-        botonRegistro.place(x=90,y=410,width=120,height=30)
+        botonRegistro.place(x=95,y=410)
         botonRegistro["command"] = self.botonRegistro_command
+        
         
     def botonLogin_command(self):
         usuario = self.entryUsuario.get()
@@ -106,14 +79,14 @@ class App:
         conexion=Conexion_BD("BaseDeDatos.db")
         if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
             cliente1=conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password")
-            #clienteActivo=Cliente(cliente1[0][0],cliente1[0][1],cliente1[0][2],cliente1[0][3],cliente1[0][4],cliente1[0][5],cliente1[0][6],cliente1[0][7])
-            root.withdraw()
+            clienteActivo=Cliente(*cliente1[0])
+            
             if cliente1[0][8] == 'Admin':
                 ventanaAdmin=VPrincipalAdmin(tk.Toplevel())
             else:
-                ventanaCliente=VPrincipalCliente(tk.Toplevel())
+                ventanaCliente=VPrincipalCliente(tk.Toplevel(),clienteActivo)
         else:
-            messagebox.showwarning("Error","Usuario o contraseña incorrecta")
+            messagebox.showinfo("Error","Usuario o contraseña incorrecta")
         conexion.cerrar()
 
 
@@ -124,4 +97,5 @@ class App:
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
+    app.entryUsuario.focus()
     root.mainloop()
