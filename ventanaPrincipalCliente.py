@@ -7,7 +7,7 @@ from VentanaPeliculasCliente import VPeliculasCliente
 class VPrincipalCliente:
     def __init__(self, root, clienteActivo):
         self.cliente = clienteActivo
-        root.title("Cinemark")
+        root.title("Cinemar")
         width=600
         height=500
         screenwidth = root.winfo_screenwidth()
@@ -90,7 +90,7 @@ class VPrincipalCliente:
 
 
     def botonReservas_command(self):
-        print("command")
+        pass
 
 if __name__ == "__main__":
     root = tk.Tk()

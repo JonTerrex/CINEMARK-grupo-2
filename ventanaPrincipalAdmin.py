@@ -7,7 +7,7 @@ from VentanaPeliculasAdmin import VPeliculasAdmin
 
 class VPrincipalAdmin:
     def __init__(self, root):
-        root.title("Cinemark")
+        root.title("Cinemar")
         width=600
         height=500
         screenwidth = root.winfo_screenwidth()

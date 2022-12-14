@@ -51,7 +51,6 @@ class VReservar:
         conexion.cerrar()
         self.menuPeliculas=ttk.Combobox(root, values = listaPelis)
         self.menuPeliculas.bind('<<ComboboxSelected>>', self.cargarFuncion)
-        self.menuPeliculas.selection_clear()
         self.menuPeliculas.place(x=130,y=150, width=300)
 
         labelFuncion=ttk.Label(root)
