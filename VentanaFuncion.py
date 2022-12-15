@@ -74,8 +74,11 @@ class VFuncion:
 
     def botonGuardar_command(self):
         conexion=Conexion_BD("BaseDeDatos.db")
-        conexion.insertar("INSERT INTO Funciones (Fecha, Hora, id_Sala, id_Pelicula) VALUES (?,?,?,?)", (self.entryFecha.get(), self.entryHora.get(), self.entrySala.get(), self.entryPelicula.get()))
-        messagebox.showinfo("", "Función creada con éxito")
+        if self.entryFecha.get() == "" or self.entryHora.get() == "" or self.entrySala.get() == "" or self.entryPelicula.get() == "":
+            messagebox.showerror("Error", "Complete todos los campos por favor")
+        else:
+            conexion.insertar("INSERT INTO Funciones (Fecha, Hora, id_Sala, id_Pelicula) VALUES (?,?,?,?)", (self.entryFecha.get(), self.entryHora.get(), self.entrySala.get(), self.entryPelicula.get()))
+            messagebox.showinfo("", "Función creada con éxito")
 
 if __name__ == "__main__":
     root = tk.Tk()
