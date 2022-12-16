@@ -32,7 +32,7 @@ class VFuncion:
         labelSubtitulo["font"] = ft
         labelSubtitulo["fg"] = "#1f93ff"
         labelSubtitulo["justify"] = "center"
-        labelSubtitulo["text"] = "Datos de la función"
+        labelSubtitulo["text"] = "Crear nueva función"
         labelSubtitulo.place(x=0,y=35,width=300,height=25)
 
         self.entryFecha=ttk.Entry(root)

@@ -4,6 +4,7 @@ from tkinter import ttk
 from ventanaReservar import VReservar
 from VentanaPeliculasCliente import VPeliculasCliente
 from VentanaReservasCliente import VReservasCliente
+from VentanaFuncionesCliente import VFuncionesCliente
 
 class VPrincipalCliente:
     def __init__(self, root, clienteActivo):
@@ -74,7 +75,7 @@ class VPrincipalCliente:
         botonReservas["font"] = ft
         botonReservas["fg"] = "#000000"
         botonReservas["justify"] = "center"
-        botonReservas["text"] = "VER RESERVAS"
+        botonReservas["text"] = "MIS RESERVAS"
         botonReservas.place(x=330,y=370,width=200,height=60)
         botonReservas["command"] = self.botonReservas_command
 
@@ -87,7 +88,7 @@ class VPrincipalCliente:
 
 
     def botonFunciones_command(self):
-        print("command")
+        winFunciones = VFuncionesCliente(tk.Toplevel())
 
 
     def botonReservas_command(self):

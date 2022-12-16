@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import *
 import tkinter.font as tkFont
 from tkinter import ttk
+from tkinter import messagebox
 from baseDeDatos import Conexion_BD
 from Funcion import Reserva
 from Funcion import Catalogo
@@ -125,10 +126,9 @@ class VReservar:
                 #self.funciones[self.menuFunciones.current()][0] -> id de la función obtenido en el método cargarFuncion(self, event)
                 #     self.menuFunciones.current() -> Valor del índice del opción seleccionada en el componente menuFunciones
                 conexion.actualizar("UPDATE funciones SET totalButacas = ? WHERE id = ?", (self.butacas-int(self.c.get()),self.funciones[self.menuFunciones.current()][0]))
+                messagebox.showinfo("Operación exitosa", f"Ya está hecha tu reserva de {self.c.get()} entradas para {self.menuPeliculas.get()}")
 
-
-
-
+#Agregar messagebox en caso de que no haya mas entradas
 
 if __name__ == "__main__":
     root = tk.Tk()
