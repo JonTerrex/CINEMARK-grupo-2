@@ -3,7 +3,7 @@ from tkinter import ttk
 import tkinter.font as tkFont
 from baseDeDatos import Conexion_BD
 
-class VentanaEditar:
+class VAgregar:
     def __init__(self, root,tituloFrame,titulo,editar=None):
         root.title(titulo)
         width=400
@@ -20,6 +20,7 @@ class VentanaEditar:
         
         self.titulo=titulo
         self.frame1=ttk.LabelFrame(root,text=tituloFrame)
+        
 
         self.titulo=ttk.Label(self.frame1)
         self.titulo["text"] = "Título:"
@@ -36,6 +37,7 @@ class VentanaEditar:
         self.estrenoEntry=ttk.Entry(self.frame1)
         self.estrenoEntry.insert('0',editar[1])
         self.estrenoEntry.grid(row=1,column=1)
+        
 
         self.genero=ttk.Label(self.frame1)
         self.genero["text"] = "Género:"
@@ -82,19 +84,11 @@ class VentanaEditar:
         self.datos=[]
 
         self.frame1.pack(fill="both",expand=5)
-
-        
-
+    
     def __guardar(self):
         conexion = Conexion_BD("BaseDeDatos.db")
-        idPeli = conexion.consulta(f"SELECT id FROM Peliculas WHERE Titulo = '{editar[0]}'")
-        idPeli = idPeli[0][0]
-        #idPeli = conexion.consulta(f"SELECT id FROM Peliculas WHERE Titulo = '{editar[0]}'")
-        conexion.actualizar(f"UPDATE Peliculas SET Titulo = ?, Estreno = ?,Genero = ?, Duracion = ?, Director = ?, Descripcion = ?, Clasificacion = ? WHERE id = '{idPeli}'", (self.tituloEntry.get(), self.estrenoEntry.get(), self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(), self.descripcionText.get(),self.clasificacionEntry.get()))
-        #conexion.actualizar(f"UPDATE Peliculas SET Titulo = '{self.tituloEntry.get()}', Estreno = '{self.estrenoEntry.get()}', Genero = '{self.generoEntry.get()}', Duracion = '{self.duracionEntry.get()}', Director = '{self.directorEntry.get()}', Descripcion = '{self.descripcionText.get()}', Clasificacion = '{self.clasificacionEntry.get()}' WHERE ")
-        #conexion.commit()
-        #conexion.cerrar()
-        self.datos=[self.tituloEntry.get(),self.estrenoEntry.get(),self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get(),self.clasificacionEntry.get()]
+        conexion.insertar("INSERT INTO Peliculas (Titulo, Estreno, Genero, Duracion, Director, Descripcion, Clasificacion) VALUES (?,?,?,?,?,?,?)", (self.tituloEntry.get(),self.estrenoEntry.get(),self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get('0.0',"end"),self.clasificacionEntry.get()))
+        self.datos=[self.tituloEntry.get(),self.estrenoEntry.get(),self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get('0.0',"end"),self.clasificacionEntry.get()]
 
     def getCampos(self):
         return self.datos

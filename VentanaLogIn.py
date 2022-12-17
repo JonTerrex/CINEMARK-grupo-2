@@ -4,6 +4,7 @@ from tkinter import ttk
 import tkinter.font as tkFont
 from baseDeDatos import Conexion_BD
 from Usuario import Cliente
+from Usuario import Admin
 from ventanaPrincipalAdmin import VPrincipalAdmin
 from ventanaPrincipalCliente import VPrincipalCliente
 from ventanaRegistro import VRegistro
@@ -80,10 +81,13 @@ class App:
         if conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password"):
             cliente1=conexion.consulta(f"SELECT * FROM Clientes WHERE usuario = '{usuario}' AND '{password}' == password")
             clienteActivo=Cliente(*cliente1[0])
+            #usuarioActivo=Cliente(*cliente1[0])
             
             if cliente1[0][8] == 'Admin':
+                #adminActivo=Admin(*cliente1[0])
                 ventanaAdmin=VPrincipalAdmin(tk.Toplevel())
             else:
+                #clienteActivo=Cliente(*cliente1[0])
                 ventanaCliente=VPrincipalCliente(tk.Toplevel(),clienteActivo)
         else:
             messagebox.showinfo("Error","Usuario o contraseña incorrecta")

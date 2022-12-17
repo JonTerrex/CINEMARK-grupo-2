@@ -13,6 +13,13 @@ class Conexion_BD():
     def insertar(self, consulta, value):
         self.cursor.execute(consulta, value)
         self.conexion.commit()
+        ultimo_id = self.cursor.lastrowid
+        self.conexion.close()
+        return ultimo_id
+ 
+    def actualizar(self, consulta, value):
+        self.cursor.execute(consulta, value)
+        self.conexion.commit()
         self.conexion.close()
 
     # try DELETE except id_error 

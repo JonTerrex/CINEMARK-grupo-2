@@ -191,13 +191,13 @@ class Pelicula:
         conexion.insertar(f"INSERT INTO Peliculas (titulo, estreno, genero, duracion, director, descripcion, clasificacion) values (?,?,?,?,?,?,?)", (self.titulo, self.estreno, self.genero, self.duracion, self.director, self.descripcion, self.clasificacion))
         
 
-peli=Pelicula('El Menú','2022','Thriller',106,'Mark Mylod', 'Una pareja viaja para tener una experiencia culinaria única en el mundo, cuando el ingrediente secreto del platillo preparado por el chef tendrá un resultado sorprendente para la pareja','B-15')
+#peli=Pelicula('El Menú','2022','Thriller',106,'Mark Mylod', 'Una pareja viaja para tener una experiencia culinaria única en el mundo, cuando el ingrediente secreto del platillo preparado por el chef tendrá un resultado sorprendente para la pareja','B-15')
 #peli.quitarPelicula(4)
 #peli.agregarPelicula()
 
 
 class Catalogo:
-    def __init__(self,peliculas=[]):
+    def __init__(self,peliculas=None):
         self.__peliculas = peliculas
 
     def listarPeliculas(self):
@@ -207,9 +207,10 @@ class Catalogo:
 
 class Reserva:
     def __init__(self, id_Funcion, id_Cliente):
-        self.__id = id
+        self.__id = None
         self.__id_Funcion = id_Funcion
         self.__id_Cliente = id_Cliente
+        self.__id_detalle_reservas = None
 
     @property
     def id(self):
@@ -220,6 +221,9 @@ class Reserva:
     @property
     def id_Cliente(self):
         return self.__id_Cliente
+    @property
+    def id_detalle_reservas(self):
+        return self.__id_detalle_reservas
 
     @id.setter
     def id(self, nuevoId):
@@ -230,10 +234,15 @@ class Reserva:
     @id_Cliente.setter
     def id_Cliente(self, nuevoId_Cliente):
         self.__id_Cliente = nuevoId_Cliente
+    @id_detalle_reservas.setter
+    def id_detalle_reservas(self, nuevoId_Detalle_Reservas):
+        self.__id_detalle_reservas = nuevoId_Detalle_Reservas
 
     def reservar(self):
         conexion = Conexion_BD("BaseDeDatos.db")
-        conexion.insertar(f"INSERT INTO Reservas(id_Funcion, id_Cliente) VALUES (?,?)", (self.id_Funcion, self.id_Cliente))
+        self.id = conexion.insertar("INSERT INTO Reservas(id_Funcion, id_Cliente) VALUES (?,?)", (self.id_Funcion, self.id_Cliente))
+    
+    def detallar(self, butacas):
+        conexion = Conexion_BD("BaseDeDatos.db")
+        self.id_detalle_reservas = conexion.insertar("INSERT INTO Detalle_Reservas(id_Reserva, butacasReservadas) VALUES (?,?)", (self.id, butacas))
 
-
-        

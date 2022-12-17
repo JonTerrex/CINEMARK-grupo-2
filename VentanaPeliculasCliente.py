@@ -38,8 +38,6 @@ class VPeliculasCliente:
         self.frameTabla.pack(side="top",anchor="s",expand=1,fill="both")
         
         
-        
-
 if __name__ == "__main__":
     root = tkinter.Tk()
     app = VPeliculasCliente(root)

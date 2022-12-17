@@ -4,10 +4,11 @@ from tkinter import ttk
 from ventanaDescuentos import VDescuentos
 from VentanaFuncion import VFuncion
 from VentanaPeliculasAdmin import VPeliculasAdmin
+from VentanaReservasAdmin import VReservasAdmin
 
 class VPrincipalAdmin:
     def __init__(self, root):
-        root.title("Cinemark")
+        root.title("Cinemar")
         width=600
         height=500
         screenwidth = root.winfo_screenwidth()
@@ -62,7 +63,7 @@ class VPrincipalAdmin:
         botonFunciones["font"] = ft
         botonFunciones["fg"] = "#000000"
         botonFunciones["justify"] = "center"
-        botonFunciones["text"] = "FUNCIONES"
+        botonFunciones["text"] = "CREAR FUNCIÓN"
         botonFunciones.place(x=330,y=260,width=200,height=60)
         botonFunciones["command"] = self.botonFunciones_command
 
@@ -89,7 +90,7 @@ class VPrincipalAdmin:
 
 
     def botonReservas_command(self):
-        print("command")
+        winReservas = VReservasAdmin(tk.Toplevel())
 
 if __name__ == "__main__":
     root = tk.Tk()

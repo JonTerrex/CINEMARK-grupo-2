@@ -3,10 +3,10 @@ import tkinter
 from tkinter.messagebox import askyesno
 import tkinter.font as tkFont
 from baseDeDatos import Conexion_BD
-from VentanaAgregar import VAgregar
-from VentanaEditarPelis import VentanaEditar
+from ventanaEditarFunciones import VEditarFunciones
 
-class VPeliculasAdmin:
+
+class VFuncionesAdmin:
     def __init__(self,root):
         self.root=root
         self.root.title("Cinemar")
@@ -18,14 +18,14 @@ class VPeliculasAdmin:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
         
-        cabecera = ["Título","Estreno","Género","Duración", "Director", "Descripción","Clasificación"]
+        cabecera = ["Fecha","Hora","Sala", "id Película", "Película"]
         
         conexion = Conexion_BD("BaseDeDatos.db")
-        listaPelis = conexion.consulta("SELECT Titulo,Estreno,Genero,Duracion,Director,Descripcion,Clasificacion FROM Peliculas")
+        listaPelis = conexion.consulta("SELECT Fecha,Hora,id_Sala, p.id, Titulo FROM Funciones f INNER JOIN Peliculas p ON f.id_Pelicula = p.id")
         conexion.cerrar()
 
         ft = tkFont.Font(family='Times',size="10")
-        self.frameTabla=tkinter.LabelFrame(root,text="Películas")
+        self.frameTabla=tkinter.LabelFrame(root,text="Funciones")
         self.tb=ttk.Treeview(self.frameTabla,columns=tuple(cabecera),selectmode="extended")
         
         for t in cabecera:
@@ -38,9 +38,9 @@ class VPeliculasAdmin:
 
 
         self.frameBotones=tkinter.LabelFrame(root,text="Operaciones")
-        self.editar=tkinter.Button(self.frameBotones,text="Editar",command=self.editarPelicula)
-        self.eliminar=tkinter.Button(self.frameBotones,text="Eliminar",command=self.eliminarPelicula)
-        self.agregar=tkinter.Button(self.frameBotones,text="Agregar",command=self.agregarPelicula)
+        self.editar=tkinter.Button(self.frameBotones,text="Editar",command=self.editarFuncion)
+        self.eliminar=tkinter.Button(self.frameBotones,text="Eliminar",command=self.eliminarFuncion)
+        self.agregar=tkinter.Button(self.frameBotones,text="Agregar",command=self.agregarFuncion)
         self.agregar.grid(row=0,column=0)
         self.editar.grid(row=0,column=1)
         self.eliminar.grid(row=0,column=2)
@@ -50,30 +50,27 @@ class VPeliculasAdmin:
         self.frameTabla.pack(side="top",anchor="s",expand=1,fill="both")
         self.frameBotones.pack(side="bottom",anchor="s",fill="x",expand=1)
         
-    def eliminarPelicula(self):
+    def eliminarFuncion(self):
         items=self.tb.selection()
-        mensaje = askyesno(message='Seguro que desea borrar esta película?', icon='question', title= 'Atención')
+        mensaje = askyesno(message='Seguro que desea borrar esta función?', icon='question', title= 'Atención')
         if mensaje:
             for item in items:
                 self.tb.delete(item)
             
         
-    def agregarPelicula(self):
-        v=VAgregar(tkinter.Tk(),"Nueva Película","Agregar Película")
+    def agregarFuncion(self):
+        v=VEditarFunciones(tkinter.Tk(),"Nueva Función","Agregar Función")
         datos=v.getCampos()
         
     
-    def editarPelicula(self):
-        #conexion = Conexion_BD("BaseDeDatos.db")
-        #idPeli = conexion.consulta("SELECT id FROM Peliculas
+    def editarFuncion(self):
         item=self.tb.focus()
-        #print(item)
-        #print(self.tb.item(item)["values"])
-        v=VentanaEditar(tkinter.Tk(),"Película","Editar",self.tb.item(item)["values"])
+        print(self.tb.item(item)["values"])
+        v=VEditarFunciones(tkinter.Tk(),"Funciones","Editar",self.tb.item(item)["values"])
         
         
 
 if __name__ == "__main__":
     root = tkinter.Tk()
-    app = VPeliculasAdmin(root)
+    app = VFuncionesAdmin(root)
     root.mainloop()
