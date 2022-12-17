@@ -53,9 +53,25 @@ class VFuncionesAdmin:
     def eliminarFuncion(self):
         items=self.tb.selection()
         mensaje = askyesno(message='Seguro que desea borrar esta función?', icon='question', title= 'Atención')
+       
+        selection=self.tb.focus()
+        print(self.tb.item(selection)["values"])
+        funcionElegida=self.tb.item(selection)["values"]
+        print(funcionElegida)
+        conexion = Conexion_BD("BaseDeDatos.db")
+        idFunc = conexion.consulta(f"SELECT id FROM Funciones WHERE Fecha = '{funcionElegida[0]}' AND Hora = '{funcionElegida[1]}' AND id_Sala = '{funcionElegida[2]}' AND id_Pelicula = '{funcionElegida[3]}'") ## nos permite recuperar el id de la Peli, cuyo titutlo vino desde el llamdo de esta ventana.
+        idFunc = int(idFunc[0][0])
+        print(idFunc)
+        
         if mensaje:
+            #DELETE FROM table_name WHERE condition;
+            conexion.consulta(f"DELETE FROM Funciones WHERE id={idFunc}")
             for item in items:
                 self.tb.delete(item)
+        print(conexion.consulta(f"SELECT * FROM Funciones WHERE id={idFunc}"))
+        #conexion.commit()
+        conexion.cerrar()    
+        
             
         
     def agregarFuncion(self):
