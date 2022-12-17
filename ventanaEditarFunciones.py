@@ -14,7 +14,14 @@ class VEditarFunciones:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
         
-
+        self.funcionAntes=editar
+        print(self.funcionAntes)
+        conexion = Conexion_BD("BaseDeDatos.db")
+        self.idFuncion = conexion.consulta(f"SELECT id FROM Funciones WHERE Fecha = '{self.funcionAntes[0]}' AND Hora = '{self.funcionAntes[1]}' AND id_sala = '{self.funcionAntes[2]}' AND id_pelicula= '{self.funcionAntes[3]}'") ## nos permite recuperar el id de la Peli, cuyo titutlo vino desde el llamdo de esta ventana.
+        self.idFuncion = int(self.idFuncion[0][0])
+        print(self.idFuncion)
+        conexion.cerrar()
+        
         if(editar is None):
             editar=["","","",""]
         
@@ -51,10 +58,9 @@ class VEditarFunciones:
         self.idPelicula["text"] = "id Película:"
         self.idPelicula.grid(row=3,column=0)
         
-        self.idPelicula.Entry=ttk.Entry(self.frame1)
-        self.idPelicula.Entry.insert('0',editar[3])
-        self.idPelicula.Entry.grid(row=3,column=1)
-
+        self.idPeliculaEntry=ttk.Entry(self.frame1)
+        self.idPeliculaEntry.insert('0',editar[3])
+        self.idPeliculaEntry.grid(row=3,column=1)
 
         self.guardar=ttk.Button(self.frame1,text="Guardar",command=self.__guardar)
         self.guardar.grid(row=4,column=1)
@@ -65,7 +71,7 @@ class VEditarFunciones:
     
     def __guardar(self):
         conexion = Conexion_BD("BaseDeDatos.db")
-        #conexion.actualizar("UPDATE Funciones SET Fecha = ?, Hora = ?, id_Sala = ?, id_Pelicula = ? WHERE id_Pelicula = ", (self.fechaEntry.get(),self.horaEntry.get(),self.salaEntry.get(),self.idPeliculaEntry.get()))
+        conexion.actualizar("UPDATE Funciones SET Fecha = ?, Hora = ?, id_Sala = ?, id_Pelicula = ? WHERE id = ?", (self.fechaEntry.get(),self.horaEntry.get(),self.salaEntry.get(),self.idPeliculaEntry.get(), self.idFuncion))
         self.datos=[self.fechaEntry.get(),self.horaEntry.get(),self.salaEntry.get(),self.idPeliculaEntry.get()]
 
     def getCampos(self):

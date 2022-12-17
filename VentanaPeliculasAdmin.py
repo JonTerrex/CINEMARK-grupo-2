@@ -53,10 +53,23 @@ class VPeliculasAdmin:
     def eliminarPelicula(self):
         items=self.tb.selection()
         mensaje = askyesno(message='Seguro que desea borrar esta película?', icon='question', title= 'Atención')
+        
+        selection=self.tb.focus()
+        print(self.tb.item(selection)["values"])
+        peliElegida=self.tb.item(selection)["values"]
+        conexion = Conexion_BD("BaseDeDatos.db")
+        idPeli = conexion.consulta(f"SELECT id FROM Peliculas WHERE Titulo = '{peliElegida[0]}'") ## nos permite recuperar el id de la Peli, cuyo titutlo vino desde el llamdo de esta ventana.
+        idPeli = int(idPeli[0][0])
+        print(idPeli)
+        
         if mensaje:
+            #DELETE FROM table_name WHERE condition;
+            conexion.consulta(f"DELETE FROM Peliculas WHERE id={idPeli}")
             for item in items:
-                self.tb.delete(item)
-            
+                self.tb.delete(item))
+        print(conexion.consulta(f"SELECT * FROM Peliculas WHERE id={idPeli}"))
+        #conexion.commit()
+        conexion.cerrar()    
         
     def agregarPelicula(self):
         v=VAgregar(tkinter.Tk(),"Nueva Película","Agregar Película")

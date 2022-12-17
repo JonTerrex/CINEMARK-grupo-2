@@ -14,7 +14,13 @@ class VentanaEditar:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
         
+        self.peliAntes=editar
+        conexion = Conexion_BD("BaseDeDatos.db")
+        self.idPeli = conexion.consulta(f"SELECT id FROM Peliculas WHERE Titulo = '{self.peliAntes[0]}'") ## nos permite recuperar el id de la Peli, cuyo titutlo vino desde el llamdo de esta ventana.
+        self.idPeli = int(self.idPeli[0][0])
+        conexion.cerrar()
 
+        
         if(editar is None):
             editar=["","","","","","",""]
         
@@ -84,17 +90,10 @@ class VentanaEditar:
         self.frame1.pack(fill="both",expand=5)
 
         
-
     def __guardar(self):
         conexion = Conexion_BD("BaseDeDatos.db")
-        idPeli = conexion.consulta(f"SELECT id FROM Peliculas WHERE Titulo = '{editar[0]}'")
-        idPeli = idPeli[0][0]
-        #idPeli = conexion.consulta(f"SELECT id FROM Peliculas WHERE Titulo = '{editar[0]}'")
-        conexion.actualizar(f"UPDATE Peliculas SET Titulo = ?, Estreno = ?,Genero = ?, Duracion = ?, Director = ?, Descripcion = ?, Clasificacion = ? WHERE id = '{idPeli}'", (self.tituloEntry.get(), self.estrenoEntry.get(), self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(), self.descripcionText.get(),self.clasificacionEntry.get()))
-        #conexion.actualizar(f"UPDATE Peliculas SET Titulo = '{self.tituloEntry.get()}', Estreno = '{self.estrenoEntry.get()}', Genero = '{self.generoEntry.get()}', Duracion = '{self.duracionEntry.get()}', Director = '{self.directorEntry.get()}', Descripcion = '{self.descripcionText.get()}', Clasificacion = '{self.clasificacionEntry.get()}' WHERE ")
-        #conexion.commit()
-        #conexion.cerrar()
-        self.datos=[self.tituloEntry.get(),self.estrenoEntry.get(),self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get(),self.clasificacionEntry.get()]
+        conexion.actualizar(f"UPDATE Peliculas SET Titulo = ?, Estreno = ?,Genero = ?, Duracion = ?, Director = ?, Descripcion = ?, Clasificacion = ? WHERE id = ?", (self.tituloEntry.get(), self.estrenoEntry.get(), self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get('0.0',"end"),self.clasificacionEntry.get(),self.idPeli))
+        #self.datos=[self.tituloEntry.get(),self.estrenoEntry.get(),self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get(),self.clasificacionEntry.get()]
 
     def getCampos(self):
         return self.datos
