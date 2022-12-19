@@ -8,7 +8,7 @@ from Funcion import Reserva
 from Funcion import Catalogo
 from Funcion import Pelicula
 
-class VReservar:
+class VEditReserva:
     def __init__(self, root, clienteActivo):
         self.cliente = clienteActivo
         self.funciones = None
@@ -37,7 +37,7 @@ class VReservar:
         labelSubtitulo["font"] = ft
         labelSubtitulo["fg"] = "#1f93ff"
         labelSubtitulo["justify"] = "center"
-        labelSubtitulo["text"] = "Reservar entradas"
+        labelSubtitulo["text"] = "Modificar Reserva"
         labelSubtitulo.place(x=0,y=50,width=500,height=40)
 
         labelPelicula=ttk.Label(root)
@@ -75,10 +75,10 @@ class VReservar:
         self.labelButacas["text"] = "[No Hay Butacas disponibles]"
         self.labelButacas.place(x=200,y=307)
 
-        self.botonReservar=ttk.Button(root)
-        self.botonReservar["text"] = "Reservar"
-        self.botonReservar.place(x=190,y=420)
-        self.botonReservar["command"] = self.botonReservar_command
+        self.botonGuardar=ttk.Button(root)
+        self.botonGuardar["text"] = "Guardar cambios"
+        self.botonGuardar.place(x=190,y=420)
+        self.botonGuardar["command"] = self.botonGuardar_command
 
     def cargarFuncion(self, event):
         conexion=Conexion_BD("BaseDeDatos.db")
@@ -88,13 +88,13 @@ class VReservar:
             funcionesCombobox.append(funcion[2:])
         if funcionesCombobox:
             self.menuFunciones["state"] = 'normal'
-            self.botonReservar["state"] = 'normal'            
+            self.botonGuardar["state"] = 'normal'            
             self.menuFunciones["values"] = funcionesCombobox
             self.menuFunciones["state"]="normal"
         else:
             self.menuFunciones.set('')
             self.menuFunciones["state"] = 'disabled'
-            self.botonReservar["state"] = 'disabled'
+            self.botonGuardar["state"] = 'disabled'
             self.labelButacas["text"] = "[No Hay Butacas disponibles]"
         conexion.cerrar()
 
@@ -111,25 +111,19 @@ class VReservar:
             self.c.set('')
             self.labelButacas["text"] = "[No Hay Butacas disponibles]"
 
-    def botonReservar_command(self):
+    def botonGuardar_command(self):
         reserva_actual = Reserva(self.funciones[self.menuFunciones.current()][0],self.cliente.usuario)
-        #Llamada al método reservar del objeto tipo Reserva el cual devuelve en la propiedad id del mismo
-        #el último id generado al agregar la reserva. (ver cursor.lastrowid)
-        reserva_actual.reservar()
-        #Si se devuelve el generado al reservar se agrega el detalle
+        print(reserva_actual)
+        """reserva_actual.editReserva()
         if reserva_actual.id:
-            reserva_actual.detallar(int(self.c.get()))
+            reserva_actual.updateDetalle(int(self.c.get()))
             if reserva_actual.id_detalle_reservas:
                 conexion=Conexion_BD("BaseDeDatos.db")
-                #self.butacas -> Cantidad de butacas totales de la función actual
-                #int(self.c.get()) -> Conversión de la cantidad seleccionada en el spinbox self.c
-                #self.funciones[self.menuFunciones.current()][0] -> id de la función obtenido en el método cargarFuncion(self, event)
-                #     self.menuFunciones.current() -> Valor del índice del opción seleccionada en el componente menuFunciones
-                conexion.actualizar("UPDATE funciones SET butacasLibres = ? WHERE id = ?", (self.butacas-int(self.c.get()),self.funciones[self.menuFunciones.current()][0]))
-                messagebox.showinfo("Operación exitosa", f"Ya está hecha tu reserva de {self.c.get()} entradas para {self.menuPeliculas.get()}")
-
+                conexion.actualizar("UPDATE Funciones SET butacasLibres = ? WHERE id = ?", (self.butacas-int(self.c.get()),self.funciones[self.menuFunciones.current()][0]))
+                messagebox.showinfo("Modificaste tu reserva", f"Tu reserva es ahora de {self.c.get()} entradas para {self.menuPeliculas.get()}")
+        """
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = VReservar(root)
+    app = VEditReserva(root)
     root.mainloop()

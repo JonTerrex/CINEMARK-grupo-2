@@ -63,13 +63,11 @@ class VPeliculasAdmin:
         print(idPeli)
         
         if mensaje:
-            #DELETE FROM table_name WHERE condition;
             conexion.consulta(f"DELETE FROM Peliculas WHERE id={idPeli}")
             for item in items:
-                self.tb.delete(item))
-        print(conexion.consulta(f"SELECT * FROM Peliculas WHERE id={idPeli}"))
-        #conexion.commit()
-        conexion.cerrar()    
+                self.tb.delete(item)
+            conexion.commit()
+            conexion.cerrar()  
         
     def agregarPelicula(self):
         v=VAgregar(tkinter.Tk(),"Nueva Película","Agregar Película")
@@ -77,11 +75,7 @@ class VPeliculasAdmin:
         
     
     def editarPelicula(self):
-        #conexion = Conexion_BD("BaseDeDatos.db")
-        #idPeli = conexion.consulta("SELECT id FROM Peliculas
         item=self.tb.focus()
-        #print(item)
-        #print(self.tb.item(item)["values"])
         v=VentanaEditar(tkinter.Tk(),"Película","Editar",self.tb.item(item)["values"])
         
         

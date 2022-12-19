@@ -6,7 +6,7 @@ from baseDeDatos import Conexion_BD
 class VAgregar:
     def __init__(self, root,tituloFrame,titulo,editar=None):
         root.title(titulo)
-        width=400
+        width=450
         height=360
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
@@ -56,7 +56,7 @@ class VAgregar:
         self.duracionEntry.grid(row=3,column=1)
 
         self.director=ttk.Label(self.frame1)
-        self.director["text"] = "Género:"
+        self.director["text"] = "Director:"
         self.director.grid(row=4,column=0)
         
         self.directorEntry=ttk.Entry(self.frame1)
@@ -64,9 +64,10 @@ class VAgregar:
         self.directorEntry.grid(row=4,column=1)
 
         self.descripcion=ttk.Label(self.frame1)
-        self.descripcion.grid(row=5,column=0)
+        self.descripcion["text"] = "Descripción: "
+        self.descripcion.grid(row=5,column=0, padx=10)
 
-        self.descripcionText=tk.Text(self.frame1,height=10,width=20, wrap="word")
+        self.descripcionText=tk.Text(self.frame1,height=10,width=40, wrap="word")
         self.descripcionText.grid(row=5,column=1)
         self.descripcionText.insert('0.0',editar[5])
 
