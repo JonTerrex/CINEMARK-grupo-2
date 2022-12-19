@@ -18,7 +18,7 @@ class VFuncionesCliente:
         cabecera = ["Fecha","Hora","Sala","Película","Butacas disponibles"]
 
         conexion = Conexion_BD("BaseDeDatos.db")
-        listaFunciones = conexion.consulta("SELECT Fecha, Hora, id_Sala, Titulo, totalButacas FROM Funciones f INNER JOIN Peliculas p ON f.id_Pelicula = p.id ORDER BY Fecha")
+        listaFunciones = conexion.consulta("SELECT Fecha, Hora, id_Sala, Titulo, butacasLibres FROM Funciones f INNER JOIN Peliculas p ON f.id_Pelicula = p.id ORDER BY Fecha")
         conexion.cerrar()
 
         scrollbar = tkinter.Scrollbar(root)
@@ -27,6 +27,7 @@ class VFuncionesCliente:
         self.frameTabla=tkinter.LabelFrame(root,text="Funciones")
         self.tabFunciones=ttk.Treeview(self.frameTabla,columns=tuple(cabecera),selectmode="extended",yscrollcommand=scrollbar.set)
         scrollbar.config(command=self.tabFunciones.yview)
+        
         for t in cabecera:
             self.tabFunciones.column(t,width=120,anchor="center")
         for t in cabecera:

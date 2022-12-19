@@ -241,8 +241,17 @@ class Reserva:
     def reservar(self):
         conexion = Conexion_BD("BaseDeDatos.db")
         self.id = conexion.insertar("INSERT INTO Reservas(id_Funcion, id_Cliente) VALUES (?,?)", (self.id_Funcion, self.id_Cliente))
-    
+
+    def editReserva(self):
+        #conexion = Conexion_BD("BaseDeDatos.db")
+        #self.id = conexion.actualizar("UPDATE Reservas SET id_Funcion = ?, id_Cliente =? WHERE ", (self.id_Funcion, self.id_Cliente))
+        print(self.id)
     def detallar(self, butacas):
         conexion = Conexion_BD("BaseDeDatos.db")
         self.id_detalle_reservas = conexion.insertar("INSERT INTO Detalle_Reservas(id_Reserva, butacasReservadas) VALUES (?,?)", (self.id, butacas))
+    
+    def updateDetalle(self, butacas):
+        #conexion = Conexion_BD("BaseDeDatos.db")
+        #self.id_detalle_reservas = conexion.actualizar("UPDATE Detalle_Reservas SET id_Reserva = ?, butacasReservadas = ? WHERE id = ?", (self.id, butacas, id))
+        pass
 

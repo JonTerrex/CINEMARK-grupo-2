@@ -18,10 +18,6 @@ class VReservaParticular:
         
         cabecera = ["Id Reserva", "Id Función","Id Cliente" ]
 
-        #conexion = Conexion_BD("BaseDeDatos.db")
-        #listaReservas = conexion.consulta(f"SELECT * FROM Reservas ORDER BY Fecha")
-        #conexion.cerrar()
-
         scrollbar = tkinter.Scrollbar(root)
         scrollbar.pack(side="right", fill="y")
         ft = tkFont.Font(family='Times',size="10")

@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 import tkinter.font as tkFont
 from baseDeDatos import Conexion_BD
 
 class VentanaEditar:
     def __init__(self, root,tituloFrame,titulo,editar=None):
         root.title(titulo)
-        width=400
+        width=450
         height=360
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
@@ -20,7 +21,6 @@ class VentanaEditar:
         self.idPeli = int(self.idPeli[0][0])
         conexion.cerrar()
 
-        
         if(editar is None):
             editar=["","","","","","",""]
         
@@ -60,7 +60,7 @@ class VentanaEditar:
         self.duracionEntry.grid(row=3,column=1)
 
         self.director=ttk.Label(self.frame1)
-        self.director["text"] = "Género:"
+        self.director["text"] = "Director:"
         self.director.grid(row=4,column=0)
         
         self.directorEntry=ttk.Entry(self.frame1)
@@ -68,9 +68,10 @@ class VentanaEditar:
         self.directorEntry.grid(row=4,column=1)
 
         self.descripcion=ttk.Label(self.frame1)
-        self.descripcion.grid(row=5,column=0)
+        self.descripcion["text"] = "Descripción:"
+        self.descripcion.grid(row=5,column=0, padx=10)
 
-        self.descripcionText=tk.Text(self.frame1,height=10,width=20, wrap="word")
+        self.descripcionText=tk.Text(self.frame1,height=10,width=40, wrap="word")
         self.descripcionText.grid(row=5,column=1)
         self.descripcionText.insert('0.0',editar[5])
 
@@ -89,11 +90,16 @@ class VentanaEditar:
 
         self.frame1.pack(fill="both",expand=5)
 
+        conexion = Conexion_BD("BaseDeDatos.db")
+        idPeli = conexion.consulta(f"SELECT id FROM Peliculas WHERE Titulo = '{editar[0]}'")
+        idPeli = idPeli[0][0]
         
+
     def __guardar(self):
         conexion = Conexion_BD("BaseDeDatos.db")
         conexion.actualizar(f"UPDATE Peliculas SET Titulo = ?, Estreno = ?,Genero = ?, Duracion = ?, Director = ?, Descripcion = ?, Clasificacion = ? WHERE id = ?", (self.tituloEntry.get(), self.estrenoEntry.get(), self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get('0.0',"end"),self.clasificacionEntry.get(),self.idPeli))
-        #self.datos=[self.tituloEntry.get(),self.estrenoEntry.get(),self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get(),self.clasificacionEntry.get()]
+        messagebox.showinfo("","Los cambios se han guardado correctamente")
+        self.datos=[self.tituloEntry.get(),self.estrenoEntry.get(),self.generoEntry.get(),self.duracionEntry.get(),self.directorEntry.get(),self.descripcionText.get('0.0',"end"),self.clasificacionEntry.get()]
 
     def getCampos(self):
         return self.datos

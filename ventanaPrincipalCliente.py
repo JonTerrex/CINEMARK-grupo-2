@@ -11,7 +11,7 @@ class VPrincipalCliente:
         self.cliente = clienteActivo
         root.title("Cinemar")
         width=600
-        height=500
+        height=400
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
@@ -30,16 +30,6 @@ class VPrincipalCliente:
         labelTitulo["text"] = "Cinemar - Menú Principal"
         labelTitulo.place(x=0,y=0,width=600,height=50)
 
-        botonPeliculas=tk.Button(root)
-        botonPeliculas["bg"] = "#c0c0c0"
-        ft = tkFont.Font(family='Times',size=14)
-        botonPeliculas["font"] = ft
-        botonPeliculas["fg"] = "#000000"
-        botonPeliculas["justify"] = "center"
-        botonPeliculas["text"] = "PELICULAS"
-        botonPeliculas.place(x=60,y=260,width=200,height=60)
-        botonPeliculas["command"] = self.botonPeliculas_command
-
         labelSubtitulo=tk.Label(root)
         labelSubtitulo["anchor"] = "center"
         ft = tkFont.Font(family='Times',size=16)
@@ -49,15 +39,15 @@ class VPrincipalCliente:
         labelSubtitulo["text"] = f"Bienvenido, {self.cliente.usuario}"
         labelSubtitulo.place(x=0,y=60,width=600,height=40)
 
-        botonReservar=tk.Button(root)
-        botonReservar["bg"] = "#c0c0c0"
+        botonPeliculas=tk.Button(root)
+        botonPeliculas["bg"] = "#c0c0c0"
         ft = tkFont.Font(family='Times',size=14)
-        botonReservar["font"] = ft
-        botonReservar["fg"] = "#000000"
-        botonReservar["justify"] = "center"
-        botonReservar["text"] = "RESERVAR"
-        botonReservar.place(x=60,y=370,width=200,height=60)
-        botonReservar["command"] = self.botonReservar_command
+        botonPeliculas["font"] = ft
+        botonPeliculas["fg"] = "#000000"
+        botonPeliculas["justify"] = "center"
+        botonPeliculas["text"] = "PELICULAS"
+        botonPeliculas.place(x=60,y=170,width=200,height=60)
+        botonPeliculas["command"] = self.botonPeliculas_command
 
         botonFunciones=tk.Button(root)
         botonFunciones["bg"] = "#c0c0c0"
@@ -66,8 +56,18 @@ class VPrincipalCliente:
         botonFunciones["fg"] = "#000000"
         botonFunciones["justify"] = "center"
         botonFunciones["text"] = "FUNCIONES"
-        botonFunciones.place(x=330,y=260,width=200,height=60)
+        botonFunciones.place(x=330,y=170,width=200,height=60)
         botonFunciones["command"] = self.botonFunciones_command
+
+        botonReservar=tk.Button(root)
+        botonReservar["bg"] = "#c0c0c0"
+        ft = tkFont.Font(family='Times',size=14)
+        botonReservar["font"] = ft
+        botonReservar["fg"] = "#000000"
+        botonReservar["justify"] = "center"
+        botonReservar["text"] = "RESERVAR"
+        botonReservar.place(x=60,y=280,width=200,height=60)
+        botonReservar["command"] = self.botonReservar_command
 
         botonReservas=tk.Button(root)
         botonReservas["bg"] = "#c0c0c0"
@@ -76,7 +76,7 @@ class VPrincipalCliente:
         botonReservas["fg"] = "#000000"
         botonReservas["justify"] = "center"
         botonReservas["text"] = "MIS RESERVAS"
-        botonReservas.place(x=330,y=370,width=200,height=60)
+        botonReservas.place(x=330,y=280,width=200,height=60)
         botonReservas["command"] = self.botonReservas_command
 
     def botonPeliculas_command(self):

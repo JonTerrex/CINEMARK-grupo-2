@@ -17,6 +17,8 @@ class VFuncion:
 
         mainFrame = ttk.Frame(root)
 
+        
+
         labelTitulo=tk.Label(root)
         labelTitulo["bg"] = "#1f93ff"
         ft = tkFont.Font(family='Times',size=16)
@@ -72,12 +74,20 @@ class VFuncion:
         self.botonGuardar.place(x=100,y=290)
         self.botonGuardar["command"] = self.botonGuardar_command
 
+        
+        
+        
     def botonGuardar_command(self):
         conexion=Conexion_BD("BaseDeDatos.db")
+        butLibres=[]
+        for b in conexion.consulta(f"SELECT totalButacas FROM Salas WHERE id = {self.entrySala.get()}"):
+            butLibres.append(b[0])
+        butLibres = butLibres[0]
+        
         if self.entryFecha.get() == "" or self.entryHora.get() == "" or self.entrySala.get() == "" or self.entryPelicula.get() == "":
-            messagebox.showerror("Error", "Complete todos los campos por favor")
+            messagebox.showerror("Error", "Por favor complete todos los campos")
         else:
-            conexion.insertar("INSERT INTO Funciones (Fecha, Hora, id_Sala, id_Pelicula) VALUES (?,?,?,?)", (self.entryFecha.get(), self.entryHora.get(), self.entrySala.get(), self.entryPelicula.get()))
+            conexion.insertar("INSERT INTO Funciones (Fecha, Hora, id_Sala, id_Pelicula, butacasLibres) VALUES (?,?,?,?,?)", (self.entryFecha.get(), self.entryHora.get(), self.entrySala.get(), self.entryPelicula.get(), butLibres))
             messagebox.showinfo("", "Función creada con éxito")
 
 if __name__ == "__main__":

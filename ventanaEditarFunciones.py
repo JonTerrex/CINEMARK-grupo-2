@@ -17,7 +17,7 @@ class VEditarFunciones:
         self.funcionAntes=editar
         print(self.funcionAntes)
         conexion = Conexion_BD("BaseDeDatos.db")
-        self.idFuncion = conexion.consulta(f"SELECT id FROM Funciones WHERE Fecha = '{self.funcionAntes[0]}' AND Hora = '{self.funcionAntes[1]}' AND id_sala = '{self.funcionAntes[2]}' AND id_pelicula= '{self.funcionAntes[3]}'") ## nos permite recuperar el id de la Peli, cuyo titutlo vino desde el llamdo de esta ventana.
+        self.idFuncion = conexion.consulta(f"SELECT id FROM Funciones WHERE Fecha = '{self.funcionAntes[0]}' AND Hora = '{self.funcionAntes[1]}' AND id_sala = '{self.funcionAntes[2]}' AND id_pelicula= '{self.funcionAntes[3]}'") ## nos permite recuperar el id de la Funcion
         self.idFuncion = int(self.idFuncion[0][0])
         print(self.idFuncion)
         conexion.cerrar()

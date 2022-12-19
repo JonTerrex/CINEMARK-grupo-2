@@ -31,7 +31,7 @@ class VReservasAdmin:
         
         scrollbar.config(command=self.tabReservas.yview)
         labelUsuario = ttk.Label(self.frameFiltro, text="Mostrar reservas del usuario: ")
-        self.entryUsuario = ttk.Entry(self.frameFiltro, text="")
+        
 
         self.botonFiltrar = ttk.Button(self.frameFiltro, text="Buscar reservas", command=self.botonFiltrar_command)
 
@@ -43,14 +43,24 @@ class VReservasAdmin:
         for tupla in listaReservas:
             self.tabReservas.insert("","end",text="",values=tupla)
 
-        
+    
+        self.entryUsuario = ttk.Entry(self.frameFiltro)
+
         self.tabReservas.pack(expand=1,fill="both")
         self.frameTabla.pack(side="top",anchor="s",expand=1,fill="both")
         self.frameFiltro.pack(side="bottom")
         labelUsuario.pack(side="left", padx=5, pady=10)
         self.entryUsuario.pack(side="left", padx=5, pady=10)
         self.botonFiltrar.pack(side="right", padx=5, pady=10)
+        self.tabReservas.bind('<ButtonRelease-1>', self.selectItem)
         root.bind('<Return>', lambda e: self.botonFiltrar.invoke())
+
+    def selectItem(self, event):
+        curItem = self.tabReservas.focus()
+        #print(self.tabReservas.item(curItem))
+        curItem = self.tabReservas.item(curItem)
+        curItem = curItem["values"][2]
+        print(curItem)
         
     def botonFiltrar_command(self):
         conexion = Conexion_BD("BaseDeDatos.db")
