@@ -57,9 +57,17 @@ class VFuncion:
         labelFecha["text"] = "Fecha"
         labelFecha.place(x=40,y=100)
 
+        labelFechaFormat=ttk.Label(root)
+        labelFechaFormat["text"] = "(xx/xx/xx)"
+        labelFechaFormat.place(x=200,y=100)
+
         labelHora=ttk.Label(root)
         labelHora["text"] = "Hora"
         labelHora.place(x=40,y=140)
+
+        labelHora=ttk.Label(root)
+        labelHora["text"] = "(xx:xx)"
+        labelHora.place(x=200,y=140)
 
         labelSala=ttk.Label(root)
         labelSala["text"] = "id Sala"

@@ -9,7 +9,8 @@ from Funcion import Catalogo
 from Funcion import Pelicula
 
 class VEditReserva:
-    def __init__(self, root, clienteActivo):
+    def __init__(self, root, clienteActivo, reservaActiva):
+        self.reserva = reservaActiva
         self.cliente = clienteActivo
         self.funciones = None
         root.title("Cinemar - Entradas")
@@ -113,7 +114,6 @@ class VEditReserva:
 
     def botonGuardar_command(self):
         reserva_actual = Reserva(self.funciones[self.menuFunciones.current()][0],self.cliente.usuario)
-        print(reserva_actual)
         """reserva_actual.editReserva()
         if reserva_actual.id:
             reserva_actual.updateDetalle(int(self.c.get()))
